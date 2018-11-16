@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <title>Photography | Smarty Packs</title>
+        <title>唐胖子之家</title>
         <meta name="description" content="" />
         <meta name="Author" content="Dorin Grigoras [www.stepofweb.com]" />
 
