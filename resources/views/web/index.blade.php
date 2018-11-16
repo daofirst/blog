@@ -74,7 +74,7 @@
 
 
                         <!-- SOCIAL -->
-                        <ul class="float-right nav nav-pills nav-social nav-second-main">
+                       <!--  <ul class="float-right nav nav-pills nav-social nav-second-main">
 
                             <li>
                                 <a href="https://www.twitter.com/stepofweb" target="_blank" class="social-twitter text-center text-white" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Twitter">
@@ -88,7 +88,7 @@
                                 </a>
                             </li>
 
-                        </ul>
+                        </ul> -->
                         <!-- /SOCIAL -->
 
 
