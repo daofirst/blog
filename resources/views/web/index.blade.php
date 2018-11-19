@@ -11,7 +11,7 @@
         <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
 
         <!-- WEB FONTS : use %7C instead of | (pipe) -->
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600%7CRaleway:300,400,500,600,700%7CLato:300,400,400italic,600,700" rel="stylesheet" type="text/css" />
+        <link href="assets/css/fonts_googleapis.css" rel="stylesheet" type="text/css" />
 
         <!-- CORE CSS -->
         <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -74,7 +74,7 @@
 
 
                         <!-- SOCIAL -->
-                       <!--  <ul class="float-right nav nav-pills nav-social nav-second-main">
+                        <!-- <ul class="float-right nav nav-pills nav-social nav-second-main">
 
                             <li>
                                 <a href="https://www.twitter.com/stepofweb" target="_blank" class="social-twitter text-center text-white" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Twitter">
@@ -276,24 +276,9 @@
 
                                     <!-- Social Icons -->
                                     <div class="ml-50 clearfix">
-
                                         <p class="mb-10">关注我</p>
-                                        <a href="#" class="social-icon social-icon-sm social-icon-transparent social-facebook float-left" data-toggle="tooltip" data-placement="top" title="Facebook">
-                                            <i class="icon-facebook"></i>
-                                            <i class="icon-facebook"></i>
-                                        </a>
 
-                                        <a href="#" class="social-icon social-icon-sm social-icon-transparent social-twitter float-left" data-toggle="tooltip" data-placement="top" title="Twitter">
-                                            <i class="icon-twitter"></i>
-                                            <i class="icon-twitter"></i>
-                                        </a>
-
-                                        <a href="#" class="social-icon social-icon-sm social-icon-transparent social-gplus float-left" data-toggle="tooltip" data-placement="top" title="Google plus">
-                                            <i class="icon-gplus"></i>
-                                            <i class="icon-gplus"></i>
-                                        </a>
-
-                                        <a href="#" class="social-icon social-icon-sm social-icon-transparent social-linkedin float-left" data-toggle="tooltip" data-placement="top" title="Linkedin">
+                                        <a href="https://www.linkedin.com/in/tangzhengyuan-3543b1154" target="_brank" class="social-icon social-icon-sm social-icon-transparent social-linkedin float-left" data-toggle="tooltip" data-placement="top" title="Linkedin">
                                             <i class="icon-linkedin"></i>
                                             <i class="icon-linkedin"></i>
                                         </a>
