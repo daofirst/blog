@@ -18,8 +18,8 @@
 		data-background-delay="5000" 
 		data-background-fade="1000" 
 		data-background="
-            assets/images/custom/cover/727E5041EB17FC903A09225161B0816A.jpg
-            ,assets/images/custom/cover/932611432D57207759147D3683EEF80F.jpg
+            https://xdbpublic.oss-cn-hangzhou.aliyuncs.com/images/cover/727E5041EB17FC903A09225161B0816A.jpg
+            ,https://xdbpublic.oss-cn-hangzhou.aliyuncs.com/images/cover/932611432D57207759147D3683EEF80F.jpg
         ">
 
 		<span class="overlay dark-3"><!-- dark overlay [1 to 9 opacity] --></span>

@@ -23,9 +23,9 @@
         data-background-delay="5000" 
         data-background-fade="1000" 
         data-background="
-            assets/images/custom/cover/paul-morris-167780-min.jpg
-            ,assets/images/custom/cover/gary-bendig-185238-min.jpg
-            ,assets/images/custom/cover/jay-dantinne-199087-min.jpg
+            https://xdbpublic.oss-cn-hangzhou.aliyuncs.com/images/cover/paul-morris-167780-min.jpg
+            ,https://xdbpublic.oss-cn-hangzhou.aliyuncs.com/images/cover/gary-bendig-185238-min.jpg
+            ,https://xdbpublic.oss-cn-hangzhou.aliyuncs.com/images/cover/jay-dantinne-199087-min.jpg
         ">
 
         <div class="display-table">
