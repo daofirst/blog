@@ -14,6 +14,12 @@
 Route::get('/', function () {
     return view('web.index');
 });
+Route::get('/home', function () {
+    return view('web.index');
+})->name('home');
+Route::get('/blog', function () {
+    return view('web.blog');
+})->name('blog');
 
 
 Route::group(['prefix' => 'admin'], function () {
