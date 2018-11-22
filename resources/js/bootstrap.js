@@ -2,25 +2,14 @@
 window._ = require('lodash');
 
 /**
- * We'll load jQuery and the Bootstrap jQuery plugin which provides support
- * for JavaScript based Bootstrap features such as modals and tabs. This
- * code may be modified to fit the specific needs of your application.
- */
-
-try {
-    window.Popper = require('popper.js').default;
-    window.$ = window.jQuery = require('jquery');
-
-    require('bootstrap');
-} catch (e) {}
-
-/**
  * We'll load the axios HTTP library which allows us to easily issue requests
  * to our Laravel back-end. This library automatically handles sending the
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
 window.axios = require('axios');
+
+window.moment = require('moment');
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
@@ -39,18 +28,37 @@ if (token) {
 }
 
 /**
- * Echo exposes an expressive API for subscribing to channels and listening
- * for events that are broadcast by Laravel. Echo and event broadcasting
- * allows your team to easily build robust real-time web applications.
+ * 设置 OAuth Client Token
+ * @Author   beanTang                 t13764767060@gmail.com
+ * @DateTime 2018-11-21T13:32:28+0800
+ * @param    boolean                 clientToken            [description]
  */
+function setClientToken (clientToken = null) {
+	if (!!clientToken) {
+		clientToken = JSON.parse(clientToken);
+		if (moment().isBefore(clientToken.expires_at)) {
+			window.clientToken = clientToken.access_token;
+			return true;
+		}
+	}
+	axios.post('/oauth/token', {
+		grant_type: 'client_credentials',
+		client_id: 1,
+		client_secret: 'AziZB46VNF0tXSp66BkXqkKtHfpfAGtobJG2Jb30'
+	}).then(response => {
+		let data = response.data;
+		let expiresAt = moment().add('s', data.expires_in).format('YYYY-MM-DD HH:mm:ss');
+		clientToken = {
+			'access_token': data.access_token,
+			'expires_at': expiresAt
+		};
+		storage.setItem('client_token', JSON.stringify(clientToken));
+		window.clientToken = clientToken.access_token;
+	});
+	return true;
+}
 
-// import Echo from 'laravel-echo'
+var storage = window.localStorage;
+var clientToken = storage.getItem("client_token");
+setClientToken(clientToken);
 
-// window.Pusher = require('pusher-js');
-
-// window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: process.env.MIX_PUSHER_APP_KEY,
-//     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
-//     encrypted: true
-// });

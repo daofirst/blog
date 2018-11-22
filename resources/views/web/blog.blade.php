@@ -96,3 +96,17 @@
 
 
 @endsection
+
+@section('scripts')
+	<script type="text/javascript">
+	    var instance = axios.create({
+	      baseURL: '/api/',
+	      timeout: 1000,
+	      headers: {'Authorization': window.clientToken, 'Accept': 'application/json'}
+	    });
+	    instance.get('/get_categories')
+	    .then(response => {
+	        console.log(response.data);
+	    });
+	</script>
+@endsection

@@ -5,6 +5,7 @@
         <title>唐胖子之家 - @yield('title', '首页')</title>
         <meta name="description" content="唐正元 博客 唐胖子 唐小豆" />
         <meta name="Author" content="唐正元" />
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <!-- mobile settings -->
         <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0" />
@@ -303,5 +304,8 @@
         <script src="assets/plugins/jquery/jquery-3.3.1.min.js"></script>
 
         <script src="assets/js/scripts.js"></script>
+        <script src="js/app.js"></script>
+
+        @yield('scripts')
     </body>
 </html>
