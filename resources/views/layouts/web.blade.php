@@ -11,6 +11,9 @@
         <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0" />
         <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
 
+        <!-- APP CSS -->
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css" />
+
         <!-- WEB FONTS : use %7C instead of | (pipe) -->
         <link href="assets/css/fonts_googleapis.css" rel="stylesheet" type="text/css" />
 
@@ -25,6 +28,8 @@
         <!-- PAGE LEVEL SCRIPTS -->
         <link href="assets/css/color_scheme/blue.css" rel="stylesheet" type="text/css" />
         <link href="assets/css/header-1.css" rel="stylesheet" type="text/css" />
+
+        @yield('styles')
     </head>
 
     <!--

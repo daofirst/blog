@@ -2,6 +2,16 @@
 
 @section('title', '博客')
 
+@section('styles')
+    <style>
+        .el-pagination.is-background .btn-next, .el-pagination.is-background .btn-prev, .el-pagination.is-background .el-pager li {
+            min-width: 35px;
+            height: 38px;
+            line-height: 38px;
+        }
+    </style>
+@endsection
+
 @section('content')
     <!--
 		PAGE HEADER 
@@ -130,6 +140,21 @@
                     </div>
                     <!-- /POST ITEM -->
 
+
+
+                    <!-- PAGINATION -->
+                    <div class="text-left">
+                        <!-- Pagination Default -->
+                        <el-pagination
+                                background
+                                layout="prev, pager, next"
+                                :page-size="1"
+                                :total="postPaginate.total">
+                        </el-pagination>
+                        <!-- /Pagination Default -->
+                    </div>
+                    <!-- /PAGINATION -->
+
                 </div>
 
             </div>
@@ -157,7 +182,8 @@
             el: '#app',
             data: {
                 categories: [],
-                posts: []
+                posts: [],
+                postPaginate: {}
             },
 
             methods: {
@@ -181,6 +207,7 @@
                     instance.get('/blog/get_posts')
                         .then(response => {
                             that.posts = response.data.data;
+                            that.postPaginate = response.data.meta;
                         });
                 }
             },

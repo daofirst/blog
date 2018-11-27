@@ -38,7 +38,7 @@ class BlogController extends Controller
      */
     public function getPosts (Request $request) {
 
-        $res = Post::with(['category', 'authorId'])->get();
+        $res = Post::with(['category', 'authorId'])->paginate(1);
 
         $data = $res->map(function ($item) {
             return [
@@ -55,7 +55,13 @@ class BlogController extends Controller
         });
 
         return response()->json([
-            'data' => $data
+            'data' => $data,
+            'meta' => [
+                'current_page' => $res->currentPage(),
+                'per_page' => $res->perPage(),
+                'last_page' => $res->lastPage(),
+                'total' => $res->total()
+            ]
         ]);
     }
 }
