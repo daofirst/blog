@@ -73,7 +73,7 @@
                         </div>
                         <ul class="list-group list-group-bordered list-group-noicon uppercase">
                             <li v-for="item in categories" class="list-group-item">
-                                <a :href="'#cid=' + item.id">
+                                <a href="javascript:;">
                                     <span class="fs-11 text-muted float-right">(@{{ item.posts_count }})</span>
                                     @{{ item.name }}
                                 </a>

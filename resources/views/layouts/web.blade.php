@@ -15,19 +15,19 @@
         <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css" />
 
         <!-- WEB FONTS : use %7C instead of | (pipe) -->
-        <link href="assets/css/fonts_googleapis.css" rel="stylesheet" type="text/css" />
+        <link href="{{ asset("assets/css/fonts_googleapis.css") }}" rel="stylesheet" type="text/css" />
 
         <!-- CORE CSS -->
-        <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="{{ asset("assets/plugins/bootstrap/css/bootstrap.min.css") }}" rel="stylesheet" type="text/css" />
 
         <!-- THEME CSS -->
-        <link href="assets/css/essentials.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/layout.css" rel="stylesheet" type="text/css" />
+        <link href="{{ asset("assets/css/essentials.css") }}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset("assets/css/layout.css") }}" rel="stylesheet" type="text/css" />
 
 
         <!-- PAGE LEVEL SCRIPTS -->
-        <link href="assets/css/color_scheme/blue.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/header-1.css" rel="stylesheet" type="text/css" />
+        <link href="{{ asset("assets/css/color_scheme/blue.css") }}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset("assets/css/header-1.css") }}" rel="stylesheet" type="text/css" />
 
         @yield('styles')
     </head>
@@ -199,7 +199,7 @@
                         <div class="col-md-8">
 
                             <!-- Footer Logo -->
-                            <img height="38" class="footer-logo footer-2" src="assets/images/custom/logo/logo.png" alt="" />
+                            <img height="38" class="footer-logo footer-2" src="{{ asset('assets/images/custom/logo/logo.png') }}" alt="" />
 
                             <!-- Small Description -->
                             <p>当你的才华还撑不起你的野心的时候，你就应该静下心来学习；当你的能力还驾驭不了你的目标时，就应该沉下心来，历练；梦想，不是浮躁，而是沉淀和积累。 <i>&ndash; <b>莫言</b> &ndash;</i></p>
@@ -305,11 +305,11 @@
 
 
         <!-- JAVASCRIPT FILES -->
-        <script>var plugin_path = 'assets/plugins/';</script>
-        <script src="assets/plugins/jquery/jquery-3.3.1.min.js"></script>
+        <script>var plugin_path = "{{ asset('assets/plugins') }}/";</script>
+        <script src="{{ asset("assets/plugins/jquery/jquery-3.3.1.min.js") }}"></script>
 
-        <script src="assets/js/scripts.js"></script>
-        <script src="js/app.js"></script>
+        <script src="{{ asset("assets/js/scripts.js") }}"></script>
+        <script src="{{ asset("js/app.js") }}"></script>
 
         @yield('scripts')
     </body>
