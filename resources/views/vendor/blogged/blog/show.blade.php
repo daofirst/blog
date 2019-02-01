@@ -40,7 +40,7 @@
 
                     <div class="card-footer px-5">
                             @include('blogged::partials.author', [
-                                'avatar' => $article->authorAvatar(),
+                                'avatar' => 'https://tangzhengyuan.oss-cn-shanghai.aliyuncs.com/public/blogged/images/max-baskakov-1318019-unsplash.jpg',
                                 'name'   => $article->author->name
                             ])
                     </div>
