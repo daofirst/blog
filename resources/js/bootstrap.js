@@ -33,32 +33,32 @@ if (token) {
  * @DateTime 2018-11-21T13:32:28+0800
  * @param    boolean                 clientToken            [description]
  */
-function setClientToken (clientToken = null) {
-	if (!!clientToken) {
-		clientToken = JSON.parse(clientToken);
-		if (moment().isBefore(clientToken.expires_at)) {
-			window.clientToken = clientToken.access_token;
-			return true;
-		}
-	}
-	axios.post('/oauth/token', {
-		grant_type: 'client_credentials',
-		client_id: 1,
-		client_secret: 'AziZB46VNF0tXSp66BkXqkKtHfpfAGtobJG2Jb30'
-	}).then(response => {
-		let data = response.data;
-		let expiresAt = moment().add('s', data.expires_in).format('YYYY-MM-DD HH:mm:ss');
-		clientToken = {
-			'access_token': data.access_token,
-			'expires_at': expiresAt
-		};
-		storage.setItem('client_token', JSON.stringify(clientToken));
-		window.clientToken = clientToken.access_token;
-	});
-	return true;
-}
-
-var storage = window.localStorage;
-var clientToken = storage.getItem("client_token");
-setClientToken(clientToken);
+// function setClientToken (clientToken = null) {
+// 	if (!!clientToken) {
+// 		clientToken = JSON.parse(clientToken);
+// 		if (moment().isBefore(clientToken.expires_at)) {
+// 			window.clientToken = clientToken.access_token;
+// 			return true;
+// 		}
+// 	}
+// 	axios.post('/oauth/token', {
+// 		grant_type: 'client_credentials',
+// 		client_id: 1,
+// 		client_secret: 'AziZB46VNF0tXSp66BkXqkKtHfpfAGtobJG2Jb30'
+// 	}).then(response => {
+// 		let data = response.data;
+// 		let expiresAt = moment().add('s', data.expires_in).format('YYYY-MM-DD HH:mm:ss');
+// 		clientToken = {
+// 			'access_token': data.access_token,
+// 			'expires_at': expiresAt
+// 		};
+// 		storage.setItem('client_token', JSON.stringify(clientToken));
+// 		window.clientToken = clientToken.access_token;
+// 	});
+// 	return true;
+// }
+//
+// var storage = window.localStorage;
+// var clientToken = storage.getItem("client_token");
+// setClientToken(clientToken);
 

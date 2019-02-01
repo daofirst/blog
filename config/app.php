@@ -78,7 +78,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'zh-CN',
 
     /*
     |--------------------------------------------------------------------------
@@ -104,7 +104,7 @@ return [
     |
     */
 
-    'faker_locale' => 'en_US',
+    'faker_locale' => 'zh_CN',
 
     /*
     |--------------------------------------------------------------------------
@@ -177,9 +177,6 @@ return [
 
         // Repository Service Provider
         App\Providers\RepositoryServiceProvider::class,
-
-        // Debugbar Service Provider 
-        Barryvdh\Debugbar\ServiceProvider::class,
 
     ],
 

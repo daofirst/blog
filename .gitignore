@@ -21,3 +21,4 @@ Homestead.json
 .phpstorm.meta.php
 _ide_helper.php
 .idea/
+*.lock

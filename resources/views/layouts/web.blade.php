@@ -43,7 +43,7 @@
         <!-- wrapper -->
         <div id="wrapper">
 
-            
+            @section('header')
             <!-- 
                 AVAILABLE HEADER CLASSES
 
@@ -77,32 +77,11 @@
                             <i class="fa fa-bars"></i>
                         </button>
 
-
-                        <!-- SOCIAL -->
-                        <!-- <ul class="float-right nav nav-pills nav-social nav-second-main">
-
-                            <li>
-                                <a href="https://www.twitter.com/stepofweb" target="_blank" class="social-twitter text-center text-white" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Twitter">
-                                    <i class="icon-twitter"></i>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="https://www.facebook.com/stepofweb" target="_blank" class="social-facebook text-center text-white" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Facebook">
-                                    <i class="icon-facebook"></i>
-                                </a>
-                            </li>
-
-                        </ul> -->
-                        <!-- /SOCIAL -->
-
-
                         <!-- Logo -->
                         <a class="logo float-left" href="{{ route('home') }}">
                             <img src="assets/images/custom/logo/logo.png" alt="" />
                             <img src="assets/images/custom/logo/logo-dark.png" alt="" />
                         </a>
-
 
 
                         <!-- 
@@ -137,7 +116,7 @@
                                 <ul id="topMain" class="nav nav-pills nav-main nav-hover-animate nav-animate-fadeIn">
                                     <li class="active"><!-- HOME -->
                                         <a href="#">
-                                            Home
+                                            首页
                                         </a>
                                     </li>
                                     <li class="dropdown"><!-- PORTFOLIO -->
@@ -169,7 +148,7 @@
                                         
                                     </li>
                                     <li><!-- BLOG -->
-                                        <a href="{{ route('blog') }}">
+                                        <a href="{{ url('blog') }}">
                                             博客
                                         </a>
                                     </li>
@@ -184,7 +163,7 @@
                 <!-- /Top Nav -->
 
             </div>
-
+            @show
 
 
             @yield('content')
