@@ -178,6 +178,9 @@ return [
         // Repository Service Provider
         App\Providers\RepositoryServiceProvider::class,
 
+        // Oss
+        Jacobcyl\AliOSS\AliOssServiceProvider::class,
+
     ],
 
     /*

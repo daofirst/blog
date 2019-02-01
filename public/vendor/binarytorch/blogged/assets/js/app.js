@@ -10493,7 +10493,6 @@
 
                 // 最后拼接字符串，得到一个格式为(yyyy-MM-dd)的日期
                 var nowDate = date.getFullYear() + seperator + nowMonth + seperator + strDate;
-                Articles
                 this.form.published = !0, this.form.publish_date = nowDate, this.save()
             }, draft: function () {
                 this.form.published = !1, this.save()
