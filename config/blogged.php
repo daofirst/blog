@@ -55,8 +55,8 @@ return [
 
     'ui'                   => [
         'show_app_name'    => false,
-        'logo'             => '/assets/images/custom/logo/logo.png',   // e.g.: /logo.svg
-        'fav'              => 'favicon.ico',   // e.g.: /fav.png
+        'logo'             => 'https://tangzhengyuan.oss-cn-shanghai.aliyuncs.com/blog/public/assets/images/custom/logo/logo.png',   // e.g.: /logo.svg
+        'fav'              => 'https://tangzhengyuan.oss-cn-shanghai.aliyuncs.com/blog/public/favicon.ico',   // e.g.: /fav.png
         'columns'          => 2,    // 2, 3, 4
         'sidebar'          => true,
         'primary_color'    => '#ab3f61',

@@ -12,22 +12,22 @@
         <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
 
         <!-- APP CSS -->
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css" />
+        <link href="https://tangzhengyuan.oss-cn-shanghai.aliyuncs.com/blog/public/css/app.css" rel="stylesheet" type="text/css" />
 
         <!-- WEB FONTS : use %7C instead of | (pipe) -->
-        <link href="{{ asset("assets/css/fonts_googleapis.css") }}" rel="stylesheet" type="text/css" />
+        <link href="https://tangzhengyuan.oss-cn-shanghai.aliyuncs.com/blog/public/assets/css/fonts_googleapis.css" rel="stylesheet" type="text/css" />
 
         <!-- CORE CSS -->
-        <link href="{{ asset("assets/plugins/bootstrap/css/bootstrap.min.css") }}" rel="stylesheet" type="text/css" />
+        <link href="https://tangzhengyuan.oss-cn-shanghai.aliyuncs.com/blog/public/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 
         <!-- THEME CSS -->
-        <link href="{{ asset("assets/css/essentials.css") }}" rel="stylesheet" type="text/css" />
-        <link href="{{ asset("assets/css/layout.css") }}" rel="stylesheet" type="text/css" />
+        <link href="https://tangzhengyuan.oss-cn-shanghai.aliyuncs.com/blog/public/assets/css/essentials.css" rel="stylesheet" type="text/css" />
+        <link href="https://tangzhengyuan.oss-cn-shanghai.aliyuncs.com/blog/public/assets/css/layout.css" rel="stylesheet" type="text/css" />
 
 
         <!-- PAGE LEVEL SCRIPTS -->
-        <link href="{{ asset("assets/css/color_scheme/blue.css") }}" rel="stylesheet" type="text/css" />
-        <link href="{{ asset("assets/css/header-1.css") }}" rel="stylesheet" type="text/css" />
+        <link href="https://tangzhengyuan.oss-cn-shanghai.aliyuncs.com/blog/public/assets/css/color_scheme/blue.css" rel="stylesheet" type="text/css" />
+        <link href="https://tangzhengyuan.oss-cn-shanghai.aliyuncs.com/blog/public/assets/css/header-1.css" rel="stylesheet" type="text/css" />
 
         @yield('styles')
     </head>
@@ -79,8 +79,8 @@
 
                         <!-- Logo -->
                         <a class="logo float-left" href="{{ route('home') }}">
-                            <img src="assets/images/custom/logo/logo.png" alt="" />
-                            <img src="assets/images/custom/logo/logo-dark.png" alt="" />
+                            <img src="https://tangzhengyuan.oss-cn-shanghai.aliyuncs.com/blog/public/assets/images/custom/logo/logo.png" alt="" />
+                            <img src="https://tangzhengyuan.oss-cn-shanghai.aliyuncs.com/blog/public/assets/images/custom/logo/logo-dark.png" alt="" />
                         </a>
 
 
@@ -178,7 +178,7 @@
                         <div class="col-md-8">
 
                             <!-- Footer Logo -->
-                            <img height="38" class="footer-logo footer-2" src="{{ asset('assets/images/custom/logo/logo.png') }}" alt="" />
+                            <img height="38" class="footer-logo footer-2" src="https://tangzhengyuan.oss-cn-shanghai.aliyuncs.com/blog/public/assets/images/custom/logo/logo.png" alt="" />
 
                             <!-- Small Description -->
                             <p>当你的才华还撑不起你的野心的时候，你就应该静下心来学习；当你的能力还驾驭不了你的目标时，就应该沉下心来，历练；梦想，不是浮躁，而是沉淀和积累。 <i>&ndash; <b>莫言</b> &ndash;</i></p>
@@ -284,11 +284,11 @@
 
 
         <!-- JAVASCRIPT FILES -->
-        <script>var plugin_path = "{{ asset('assets/plugins') }}/";</script>
-        <script src="{{ asset("assets/plugins/jquery/jquery-3.3.1.min.js") }}"></script>
+        <script>var plugin_path = "https://tangzhengyuan.oss-cn-shanghai.aliyuncs.com/blog/public/assets/plugins/";</script>
+        <script src="https://tangzhengyuan.oss-cn-shanghai.aliyuncs.com/blog/public/assets/plugins/jquery/jquery-3.3.1.min.js"></script>
 
-        <script src="{{ asset("assets/js/scripts.js") }}"></script>
-        <script src="{{ asset("js/app.js") }}"></script>
+        <script src="https://tangzhengyuan.oss-cn-shanghai.aliyuncs.com/blog/public/assets/js/scripts.js"></script>
+        <script src="https://tangzhengyuan.oss-cn-shanghai.aliyuncs.com/blog/public/js/app.js"></script>
 
         @yield('scripts')
     </body>
