@@ -81,10 +81,10 @@ return [
     */
 
     'social'        => [
-        'twitter'   => true,
-        'facebook'  => true,
-        'linkedin'  => true,
-        'pinterest' => true,
+        'twitter'   => false,
+        'facebook'  => false,
+        'linkedin'  => false,
+        'pinterest' => false,
         'tumblr'    => false,
         'email'     => false,
         'telegram'  => false,
