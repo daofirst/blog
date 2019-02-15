@@ -24,4 +24,8 @@ Route::group(['prefix' => 'admin'], function () {
 
 Auth::routes();
 
-Route::get('/huawei_login', 'HuaWeiLoginController@index')->name('home');
+// 华为第三方登录
+Route::get('/huawei_login', 'HuaWeiLoginController@index');
+
+// 华为第三方授权
+Route::get('/huawei/handle_transit', 'HuaWeiLoginController@handleTransit');

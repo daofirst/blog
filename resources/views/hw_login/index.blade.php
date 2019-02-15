@@ -103,7 +103,7 @@
                 var option = {
                     respontype : "token",
                     appid: APPID,
-                    handle_login_uri: "http://tangzhengyuan.com/huawei_login",
+                    handle_login_uri: "{{ url('/huawei/handle_transit') }}",
                 }
 
                 var nspp = new NspClient(option);

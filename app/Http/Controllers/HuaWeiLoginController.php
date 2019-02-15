@@ -12,8 +12,14 @@ class HuaWeiLoginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+
         return view('hw_login.index');
+    }
+
+    public function handleTransit (Request $request) {
+
+        return view('hw_login.handle_transit');
     }
 }
