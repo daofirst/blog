@@ -69,7 +69,7 @@
         $.post("/NSPClient/GetAccessToken",
             {
                 code : loginRsp.authorization_code,
-                redirect_uri : "http://localhost:8088/NSPClient/handleTransit.html" + '?p=' + encodeURIComponent(p)
+                redirect_uri : "{{ url('/huawei/handle_transit') }}" + '?p=' + encodeURIComponent(p)
             },
             function(data) {
                 if(!!data.access_token){

@@ -28,4 +28,4 @@ Auth::routes();
 Route::get('/huawei_login', 'HuaWeiLoginController@index');
 
 // 华为第三方授权
-Route::get('/huawei/handle_transit', 'HuaWeiLoginController@handleTransit');
+Route::any('/huawei/handle_transit', 'HuaWeiLoginController@handleTransit');
