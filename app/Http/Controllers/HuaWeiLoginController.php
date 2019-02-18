@@ -20,8 +20,6 @@ class HuaWeiLoginController extends Controller
 
     public function handleTransit (Request $request) {
 
-        dd(1212);
-
         return view('hw_login.handle_transit');
     }
 }

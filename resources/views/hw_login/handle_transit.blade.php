@@ -57,38 +57,15 @@
 
     var loginRsp = getUriRspArgs();
 
-
     var p = decodeURIComponent(loginRsp.p);
 
-    if (!!loginRsp.authorization_code) {
+    var accessToken = loginRsp.access_token;
+    setCookie("access_token", accessToken, "/", loginRsp.expires_in);
 
-        if (window.console) {
-            console.log("authorization_code is "+loginRsp.authorization_code);
-        }
-
-        $.post("/NSPClient/GetAccessToken",
-            {
-                code : loginRsp.authorization_code,
-                redirect_uri : "{{ url('/huawei/handle_transit') }}" + '?p=' + encodeURIComponent(p)
-            },
-            function(data) {
-                if(!!data.access_token){
-                    setCookie("access_token", data.access_token, "/", data.expires_in);
-                    window.location.href = p;
-                }
-            },
-            "json");
-
-    } else {
-
-        var accessToken = loginRsp.access_token;
-        setCookie("access_token", accessToken, "/", loginRsp.expires_in);
-
-        if (window.console) {
-            console.log("accessToken is " + accessToken);
-        }
-
-        window.location.href = p;//跳转到最终访问的页面
+    if (window.console) {
+        console.log("accessToken is " + accessToken);
     }
+
+    window.location.href = p;//跳转到最终访问的页面
 </script>
 </html>

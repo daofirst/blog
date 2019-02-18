@@ -113,7 +113,7 @@
                     nspp.api('OpenUP.User.getInfo', {
                         callback : function(data) {
                             if (!!data) {
-                                alert("userName:" + data.userName + ",userID:" + data.userID)
+                                console.log(data);
                             }
                         },
                         onError : function(err) {
