@@ -115,7 +115,7 @@
                             <!-- /BUTTONS -->
     
                             <!-- Logo -->
-                            <a class="logo float-left" href="index.html">
+                            <a class="logo float-left" href="{{ url('home') }}">
                                 <img src="https://tangzhengyuan.oss-cn-shanghai.aliyuncs.com/blog/public/assets/images/custom/logo/logo-dark.png" alt="" />
                             </a>
     
