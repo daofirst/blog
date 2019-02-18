@@ -17,16 +17,3 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::middleware('client')->group(function () {
-
-    // 获取博客类别
-	Route::any('/blog/get_categories', 'BlogController@getCategories');
-
-
-	// 获取文章列表
-	Route::any('/blog/get_posts', 'BlogController@getPosts');
-
-
-
-});
-

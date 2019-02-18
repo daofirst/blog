@@ -28,6 +28,13 @@
         <!-- PAGE LEVEL SCRIPTS -->
         <link href="https://tangzhengyuan.oss-cn-shanghai.aliyuncs.com/blog/public/assets/css/color_scheme/blue.css" rel="stylesheet" type="text/css" />
         <link href="https://tangzhengyuan.oss-cn-shanghai.aliyuncs.com/blog/public/assets/css/header-1.css" rel="stylesheet" type="text/css" />
+		<link href="https://tangzhengyuan.oss-cn-shanghai.aliyuncs.com/blog/public/assets/css/layout-shop.css" rel="stylesheet" type="text/css" />
+
+        <style>
+            section {
+                padding: 50px 0;
+            }
+        </style>
 
         @yield('styles')
     </head>
@@ -44,125 +51,127 @@
         <div id="wrapper">
 
             @section('header')
-            <!-- 
-                AVAILABLE HEADER CLASSES
+   
+			<!-- 
+				AVAILABLE HEADER CLASSES
 
-                Default nav height: 96px
-                .header-md      = 70px nav height
-                .header-sm      = 60px nav height
+				Default nav height: 96px
+				.header-md 		= 70px nav height
+				.header-sm 		= 60px nav height
 
-                .b-0        = remove bottom border (only with transparent use)
-                .sticky         = sticky header
-                .static         = static header
-                .dark           = dark header
-                .bottom         = header on bottom
-                
-                shadow-before-1 = shadow 1 header top
-                shadow-after-1  = shadow 1 header bottom
-                shadow-before-2 = shadow 2 header top
-                shadow-after-2  = shadow 2 header bottom
-                shadow-before-3 = shadow 3 header top
-                shadow-after-3  = shadow 3 header bottom
+				.b-0 		= remove bottom border (only with transparent use)
+				.transparent	= transparent header
+				.translucent	= translucent header
+				.sticky			= sticky header
+				.static			= static header
+				.dark			= dark header
+				.bottom			= header on bottom
+				
+				shadow-before-1 = shadow 1 header top
+				shadow-after-1 	= shadow 1 header bottom
+				shadow-before-2 = shadow 2 header top
+				shadow-after-2 	= shadow 2 header bottom
+				shadow-before-3 = shadow 3 header top
+				shadow-after-3 	= shadow 3 header bottom
 
-                .clearfix       = required for mobile menu, do not remove!
-            -->
-            <div id="header" class="navbar-toggleable-md clearfix header-md transparent sticky b-0 disable-uppercase shadow-after-3">
+				.clearfix		= required for mobile menu, do not remove!
 
-                <!-- TOP NAV -->
-                <header id="topNav">
-                    <div class="container">
+				Example Usage:  class="clearfix sticky header-sm transparent b-0"
+			-->
+			<div id="header" class="navbar-toggleable-md sticky clearfix">
 
-                        <!-- Mobile Menu Button -->
-                        <button class="btn btn-mobile" data-toggle="collapse" data-target=".nav-main-collapse">
-                            <i class="fa fa-bars"></i>
-                        </button>
-
-                        <!-- Logo -->
-                        <a class="logo float-left" href="{{ route('home') }}">
-                            <img src="https://tangzhengyuan.oss-cn-shanghai.aliyuncs.com/blog/public/assets/images/custom/logo/logo.png" alt="" />
-                            <img src="https://tangzhengyuan.oss-cn-shanghai.aliyuncs.com/blog/public/assets/images/custom/logo/logo-dark.png" alt="" />
-                        </a>
-
-
-                        <!-- 
-                            Top Nav 
-                        -->
-                        <div class="navbar-collapse collapse float-right nav-main-collapse">
-                            <nav class="nav-main">
-
-                                <!--
-                                    NOTE
-                                    
-                                    For a regular link, remove "dropdown" class from LI tag and "dropdown-toggle" class from the href.
-                                    Direct Link Example: 
-
-                                    <li>
-                                        <a href="#">HOME</a>
-                                    </li>
-
-                                    + MENU EFFECTS
-                                        .nav-animate-fadeIn
-                                        .nav-animate-fadeInUp
-                                        .nav-animate-bounceIn
-                                        .nav-animate-bounceInUp
-                                        .nav-animate-flipInX
-                                        .nav-animate-flipInY
-                                        .nav-animate-zoomIn
-                                        .nav-animate-slideInUp
-
-                                        .nav-hover-animate  = animate text on hover
-
-                                -->
-                                <ul id="topMain" class="nav nav-pills nav-main nav-hover-animate nav-animate-fadeIn">
-                                    <li class="active"><!-- HOME -->
-                                        <a href="#">
-                                            首页
-                                        </a>
-                                    </li>
-                                    <li class="dropdown"><!-- PORTFOLIO -->
-                                        <a class="dropdown-toggle" href="#">
-                                            作品
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <li>
-                                                <a href="#">
-                                                    Laravel
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    小程序
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    H5
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class=""><!-- ABOUT -->
-                                        <a class="" href="#">
-                                            关于我
-                                        </a>
+                    <!-- SEARCH HEADER -->
+                    <div class="search-box over-header">
+                        <a id="closeSearch" href="#" class="fa fa-remove"></a>
+    
+                        <form action="" method="get">
+                            <input type="text" class="form-control" placeholder="搜索" />
+                        </form>
+                    </div> 
+                    <!-- /SEARCH HEADER -->
+    
+    
+                    <!-- TOP NAV -->
+                    <header id="topNav">
+                        <div class="container">
+    
+                            <!-- Mobile Menu Button -->
+                            <button class="btn btn-mobile" data-toggle="collapse" data-target=".nav-main-collapse">
+                                <i class="fa fa-bars"></i>
+                            </button>
+    
+                            <!-- BUTTONS -->
+                            <ul class="float-right nav nav-pills nav-second-main">
+    
+                                <!-- SEARCH -->
+                                <li class="search">
+                                    <a href="javascript:;">
+                                        <i class="fa fa-search"></i>
+                                    </a>
+                                </li>
+                                <!-- /SEARCH -->
+    
+                            </ul>
+                            <!-- /BUTTONS -->
+    
+                            <!-- Logo -->
+                            <a class="logo float-left" href="index.html">
+                                <img src="https://tangzhengyuan.oss-cn-shanghai.aliyuncs.com/blog/public/assets/images/custom/logo/logo-dark.png" alt="" />
+                            </a>
+    
+                            <!-- 
+                                Top Nav 
+                                
+                                AVAILABLE CLASSES:
+                                submenu-dark = dark sub menu
+                            -->
+                            <div class="navbar-collapse collapse float-right nav-main-collapse submenu-dark">
+                                <nav class="nav-main">
+    
+                                    <!--
+                                        NOTE
                                         
-                                    </li>
-                                    <li><!-- BLOG -->
-                                        <a href="{{ url('blog') }}">
-                                            博客
-                                        </a>
-                                    </li>
-                                    
-                                </ul>
-
-                            </nav>
+                                        For a regular link, remove "dropdown" class from LI tag and "dropdown-toggle" class from the href.
+                                        Direct Link Example: 
+    
+                                        <li>
+                                            <a href="#">HOME</a>
+                                        </li>
+                                    -->
+                                    <ul id="topMain" class="nav nav-pills nav-main">
+                                        <li class=""><!-- HOME -->
+                                            <a href="{{ url('/home') }}">
+                                                首页
+                                            </a>
+                                        </li>
+                                        <li class="active"><!-- ABOUT -->
+                                            <a class="" href="{{ url('/shop') }}">
+                                                    商城
+                                            </a>
+                                            
+                                        </li>
+                                        <li><!-- BLOG -->
+                                            <a href="{{ url('blog') }}">
+                                                博客
+                                            </a>
+                                        </li>
+                                        <li class=""><!-- ABOUT -->
+                                            <a class="" href="#">
+                                                关于我
+                                            </a>
+                                            
+                                        </li>
+                                    </ul>
+    
+                                </nav>
+                            </div>
+    
                         </div>
-
-                    </div>
-                </header>
-                <!-- /Top Nav -->
-
-            </div>
+                    </header>
+                    <!-- /Top Nav -->
+    
+                </div>
+    
             @show
 
 

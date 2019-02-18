@@ -24,6 +24,18 @@ Route::group(['prefix' => 'admin'], function () {
 
 Auth::routes();
 
+// 唐小店
+Route::group(['prefix' => 'shop', 'namespace' => 'Web'], function () {
+    Route::get('/', 'ShopController@index');
+});\
+
+
+/*
+|--------------------------------------------------------------------------
+| 华为开发测试
+|--------------------------------------------------------------------------
+*/
+
 // 华为第三方登录
 Route::get('/huawei_login', 'HuaWeiLoginController@index');
 
