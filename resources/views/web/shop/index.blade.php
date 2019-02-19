@@ -298,40 +298,40 @@
                             <li class="list-group-item active">
                                 <a class="dropdown-toggle" href="#">女装</a>
                                 <ul>
-                                    <li><a href="#"><span class="fs-11 text-muted float-right">(123)</span> 鞋 &amp; 靴子</a></li>
+                                    <li><a href="#"><span class="fs-11 text-muted float-right">(0)</span> 鞋 &amp; 靴子</a></li>
                                     <li class="active"><a href="#"><span class="fs-11 text-muted float-right">(331)</span> 上衣 &amp; 女短衫</a></li>
-                                    <li><a href="#"><span class="fs-11 text-muted float-right">(234)</span> 连衣裙 &amp; 裙子和连衣裙</a></li>
+                                    <li><a href="#"><span class="fs-11 text-muted float-right">(0)</span> 连衣裙 &amp; 裙子和连衣裙</a></li>
                                 </ul>
                             </li>
                             <li class="list-group-item">
                                 <a class="dropdown-toggle" href="#">新品</a>
                                 <ul>
-                                    <li><a href="#"><span class="fs-11 text-muted float-right">(88)</span> 饰品</a></li>
-                                    <li><a href="#"><span class="fs-11 text-muted float-right">(67)</span> 鞋 &amp; 靴子</a></li>
-                                    <li><a href="#"><span class="fs-11 text-muted float-right">(32)</span> 连衣裙 &amp; 裙子和连衣裙</a></li>
+                                    <li><a href="#"><span class="fs-11 text-muted float-right">(0)</span> 饰品</a></li>
+                                    <li><a href="#"><span class="fs-11 text-muted float-right">(0)</span> 鞋 &amp; 靴子</a></li>
+                                    <li><a href="#"><span class="fs-11 text-muted float-right">(0)</span> 连衣裙 &amp; 裙子和连衣裙</a></li>
                                     <li class="active"><a href="#"><span class="fs-11 text-muted float-right">(78)</span> 上衣 &amp; 女短衫</a></li>
                                 </ul>
                             </li>
                             <li class="list-group-item">
                                 <a class="dropdown-toggle" href="#">首饰</a>
                                 <ul>
-                                    <li><a href="#"><span class="fs-11 text-muted float-right">(23)</span> 连衣裙 &amp; 裙子和连衣裙</a></li>
-                                    <li><a href="#"><span class="fs-11 text-muted float-right">(34)</span> 鞋 &amp; 靴子</a></li>
+                                    <li><a href="#"><span class="fs-11 text-muted float-right">(0)</span> 连衣裙 &amp; 裙子和连衣裙</a></li>
+                                    <li><a href="#"><span class="fs-11 text-muted float-right">(0)</span> 鞋 &amp; 靴子</a></li>
                                     <li class="active"><a href="#"><span class="fs-11 text-muted float-right">(21)</span> 上衣 &amp; 女短衫</a></li>
-                                    <li><a href="#"><span class="fs-11 text-muted float-right">(88)</span> 饰品</a></li>
+                                    <li><a href="#"><span class="fs-11 text-muted float-right">(0)</span> 饰品</a></li>
                                 </ul>
                             </li>
                             <li class="list-group-item">
                                 <a class="dropdown-toggle" href="#">童装</a>
                                 <ul>
-                                    <li><a href="#"><span class="fs-11 text-muted float-right">(88)</span> 鞋 &amp; 靴子</a></li>
-                                    <li><a href="#"><span class="fs-11 text-muted float-right">(22)</span> 连衣裙 &amp; 裙子和连衣裙</a></li>
-                                    <li><a href="#"><span class="fs-11 text-muted float-right">(31)</span> 饰品</a></li>
+                                    <li><a href="#"><span class="fs-11 text-muted float-right">(0)</span> 鞋 &amp; 靴子</a></li>
+                                    <li><a href="#"><span class="fs-11 text-muted float-right">(0)</span> 连衣裙 &amp; 裙子和连衣裙</a></li>
+                                    <li><a href="#"><span class="fs-11 text-muted float-right">(0)</span> 饰品</a></li>
                                     <li class="active"><a href="#"><span class="fs-11 text-muted float-right">(18)</span> 上衣 &amp; 女短衫</a></li>
                                 </ul>
                             </li>
-                            <li class="list-group-item"><a href="#"><span class="fs-11 text-muted float-right">(189)</span> 饰品</a></li>
-                            <li class="list-group-item"><a href="#"><span class="fs-11 text-muted float-right">(61)</span> 眼镜</a></li>
+                            <li class="list-group-item"><a href="#"><span class="fs-11 text-muted float-right">(0)</span> 饰品</a></li>
+                            <li class="list-group-item"><a href="#"><span class="fs-11 text-muted float-right">(0)</span> 眼镜</a></li>
 
                         </ul>
 
