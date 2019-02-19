@@ -2,6 +2,17 @@
 
 @section('title', '唐小店')
 
+@section('styles')
+    <style>
+        div.shop-item>.thumbnail>.shop-item-counter:before {
+            content: "限时特惠";
+        }
+        div.shop-item-summary h2 {
+            height: 66px;
+        }
+    </style>
+@endsection
+
 @section('content')
     <!-- -->
     <section>
@@ -42,7 +53,7 @@
                             <div class="caption-slider-default">
                                 <div class="display-table">
                                     <div class="display-table-cell vertical-align-middle">
-                                        <div class="caption-container text-left">
+                                        <div class="caption-container text-right">
                                             <h2>你过新年 <strong>我买单</strong></h2>
                                             <p>
                                                 特别的礼给特别的你!
@@ -53,7 +64,7 @@
                                 </div>
                             </div>
 
-                            <img class="img-fluid radius-4" src="https://tangzhengyuan.oss-cn-shanghai.aliyuncs.com/blog/public/assets/demo_files/images/shop/banners/top_1.png" width="851" height="335" alt="">
+                            <img class="img-fluid radius-4" src="https://tangzhengyuan.oss-cn-shanghai.aliyuncs.com/blog/public/assets/images/custom/shop/top_1.png" width="851" height="335" alt="">
                         </div>
                         <!-- /item -->
 
@@ -65,26 +76,22 @@
                     <div class="clearfix shop-list-options mb-20">
 
                         <ul class="pagination m-0 float-right">
-                            <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+                            <li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>
                             <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            {{-- <li class="page-item"><a class="page-link" href="#">2</a></li>
                             <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">4</a></li>
-                            <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+                            <li class="page-item"><a class="page-link" href="#">4</a></li> --}}
+                            <li class="page-item disabled"><a class="page-link" href="#">&raquo;</a></li>
                         </ul>
 
                         <div class="options-left">
                             <select>
-                                <option value="pos_asc">Position ASC</option>
-                                <option value="pos_desc">Position DESC</option>
-                                <option value="name_asc">Name ASC</option>
-                                <option value="name_desc">Name DESC</option>
-                                <option value="price_asc">Price ASC</option>
-                                <option value="price_desc">Price DESC</option>
+                                <option value="price_asc">价格正序</option>
+                                <option value="price_desc">价格倒序</option>
                             </select>
                             
-                            <a class="btn active fa fa-th" href="shop-4col-left.html"><!-- grid --></a>
-                            <a class="btn fa fa-list" href="shop-1col-left.html"><!-- list --></a>
+                            <a class="btn active fa fa-th" href="{{ url('/shop') }}"><!-- grid --></a>
+                            {{-- <a class="btn fa fa-list" href="shop-1col-left.html"><!-- list --></a> --}}
                         </div>
 
                     </div>
@@ -94,193 +101,35 @@
                     <ul class="shop-item-list row list-inline m-0">
 
                         <!-- ITEM -->
-                        <li class="col-lg-3">
+                        <li class="col-lg-4">
 
                             <div class="shop-item">
 
                                 <div class="thumbnail">
                                     <!-- product image(s) -->
-                                    <a class="shop-item-image" href="shop-single-left.html">
-                                        <img class="img-fluid" src="https://tangzhengyuan.oss-cn-shanghai.aliyuncs.com/blog/public/assets/demo_files/images/shop/products/300x450/p13.jpg" alt="shop first image" />
-                                        <img class="img-fluid" src="https://tangzhengyuan.oss-cn-shanghai.aliyuncs.com/blog/public/assets/demo_files/images/shop/products/300x450/p14.jpg" alt="shop hover image" />
+                                    <a target="_blank" class="shop-item-image" href="https://item.jd.com/31500278830.html?jd_pop=d960dc91-7312-4ca3-bdec-e70fe303e544">
+                                        <img class="img-fluid" src="https://tangzhengyuan.oss-cn-shanghai.aliyuncs.com/blog/public/assets/images/custom/shop/5b726c21N1d67cdf7.jpg!cc_350x449.jpg" alt="shop first image" />
+                                        <img class="img-fluid" src="https://tangzhengyuan.oss-cn-shanghai.aliyuncs.com/blog/public/assets/images/custom/shop/5b726c25Ne36bb150.jpg!cc_350x449.jpg" alt="shop hover image" />
                                     </a>
                                     <!-- /product image(s) -->
 
                                     <!-- hover buttons -->
                                     <div class="shop-option-over"><!-- replace data-item-id width the real item ID - used by js/view/demo.shop.js -->
-                                        <a class="btn btn-light add-wishlist" href="#" data-item-id="1" data-toggle="tooltip" title="Add To Wishlist"><i class="fa fa-heart p-0"></i></a>
-                                        <a class="btn btn-light add-compare" href="#" data-item-id="1" data-toggle="tooltip" title="Add To Compare"><i class="fa fa-bar-chart-o p-0" data-toggle="tooltip"></i></a>
+                                        <a target="_blank" class="btn btn-light add-wishlist" href="https://item.jd.com/31500278830.html?jd_pop=d960dc91-7312-4ca3-bdec-e70fe303e544" data-item-id="1" data-toggle="tooltip" title="加入愿望清单"><i class="fa fa-heart p-0"></i></a>
+                                        <a target="_blank" class="btn btn-light add-compare" href="https://item.jd.com/31500278830.html?jd_pop=d960dc91-7312-4ca3-bdec-e70fe303e544" data-item-id="1" data-toggle="tooltip" title="加入对比单"><i class="fa fa-bar-chart-o p-0" data-toggle="tooltip"></i></a>
                                     </div>
                                     <!-- /hover buttons -->
 
                                     <!-- product more info -->
                                     <div class="shop-item-info">
-                                        <span class="badge badge-success">NEW</span>
-                                        <span class="badge badge-danger">SALE</span>
+                                        <span class="badge badge-success">新款</span>
+                                        <span class="badge badge-danger">闪购折扣</span>
                                     </div>
                                     <!-- /product more info -->
                                 </div>
                                 
                                 <div class="shop-item-summary text-center">
-                                    <h2>Cotton 100% - Pink Shirt</h2>
-                                    
-                                    <!-- rating -->
-                                    <div class="shop-item-rating-line">
-                                        <div class="rating rating-4 fs-13"><!-- rating-0 ... rating-5 --></div>
-                                    </div>
-                                    <!-- /rating -->
-
-                                    <!-- price -->
-                                    <div class="shop-item-price">
-                                        <span class="line-through">$98.00</span>
-                                        $78.00
-                                    </div>
-                                    <!-- /price -->
-                                </div>
-
-                                    <!-- buttons -->
-                                    <div class="shop-item-buttons text-center">
-                                        <a class="btn btn-light" href="shop-cart.html"><i class="fa fa-cart-plus"></i> Add to Cart</a>
-                                    </div>
-                                    <!-- /buttons -->
-                            </div>
-
-                        </li>
-                        <!-- /ITEM -->
-
-                        <!-- ITEM -->
-                        <li class="col-lg-3">
-
-                            <div class="shop-item">
-
-                                <div class="thumbnail">
-                                    <!-- product image(s) -->
-                                    <a class="shop-item-image" href="shop-single-left.html">
-                                        <img class="img-fluid" src="https://tangzhengyuan.oss-cn-shanghai.aliyuncs.com/blog/public/assets/demo_files/images/shop/products/300x450/p11.jpg" alt="shop hover image" />
-                                        <img class="img-fluid" src="https://tangzhengyuan.oss-cn-shanghai.aliyuncs.com/blog/public/assets/demo_files/images/shop/products/300x450/p3.jpg" alt="shop first image" />
-                                    </a>
-                                    <!-- /product image(s) -->
-
-                                    <!-- hover buttons -->
-                                    <div class="shop-option-over"><!-- replace data-item-id width the real item ID - used by js/view/demo.shop.js -->
-                                        <a class="btn btn-light add-wishlist" href="#" data-item-id="2" data-toggle="tooltip" title="Add To Wishlist"><i class="fa fa-heart p-0"></i></a>
-                                        <a class="btn btn-light add-compare" href="#" data-item-id="2" data-toggle="tooltip" title="Add To Compare"><i class="fa fa-bar-chart-o p-0" data-toggle="tooltip"></i></a>
-                                    </div>
-                                    <!-- /hover buttons -->
-                                </div>
-                                
-                                <div class="shop-item-summary text-center">
-                                    <h2>Black Long Lady Shirt</h2>
-                                    
-                                    <!-- rating -->
-                                    <div class="shop-item-rating-line">
-                                        <div class="rating rating-0 fs-13"><!-- rating-0 ... rating-5 --></div>
-                                    </div>
-                                    <!-- /rating -->
-
-                                    <!-- price -->
-                                    <div class="shop-item-price">
-                                        $128.00
-                                    </div>
-                                    <!-- /price -->
-                                </div>
-
-                                    <!-- buttons -->
-                                    <div class="shop-item-buttons text-center">
-                                        <span class="out-of-stock">out of stock</span><!-- add .clean to remove css characteres -->
-                                    </div>
-                                    <!-- /buttons -->
-                            </div>
-
-                        </li>
-                        <!-- /ITEM -->
-
-                        <!-- ITEM -->
-                        <li class="col-lg-3">
-
-                            <div class="shop-item">
-
-                                <div class="thumbnail">
-                                    <!-- product image(s) -->
-                                    <a class="shop-item-image" href="shop-single-left.html">
-                                        <img class="img-fluid" src="https://tangzhengyuan.oss-cn-shanghai.aliyuncs.com/blog/public/assets/demo_files/images/shop/products/300x450/p12.jpg" alt="shop first image" />
-                                    </a>
-                                    <!-- /product image(s) -->
-
-                                    <!-- hover buttons -->
-                                    <div class="shop-option-over"><!-- replace data-item-id width the real item ID - used by js/view/demo.shop.js -->
-                                        <a class="btn btn-light add-wishlist" href="#" data-item-id="3" data-toggle="tooltip" title="Add To Wishlist"><i class="fa fa-heart p-0"></i></a>
-                                        <a class="btn btn-light add-compare" href="#" data-item-id="3" data-toggle="tooltip" title="Add To Compare"><i class="fa fa-bar-chart-o p-0" data-toggle="tooltip"></i></a>
-                                    </div>
-                                    <!-- /hover buttons -->
-                                    
-                                    <!-- countdown -->
-                                    <div class="shop-item-counter">
-                                        <div class="countdown" data-from="January 31, 2020 15:03:26" data-labels="years,months,weeks,days,hour,min,sec"><!-- Example Date From: December 31, 2018 15:03:26 --></div>
-                                    </div>
-                                    <!-- /countdown -->
-                                </div>
-                                
-                                <div class="shop-item-summary text-center">
-                                    <h2>Night Dress For Ladies</h2>
-                                    
-                                    <!-- rating -->
-                                    <div class="shop-item-rating-line">
-                                        <div class="rating rating-1 fs-13"><!-- rating-0 ... rating-5 --></div>
-                                    </div>
-                                    <!-- /rating -->
-
-                                    <!-- price -->
-                                    <div class="shop-item-price">
-                                        $34.00
-                                    </div>
-                                    <!-- /price -->
-                                </div>
-
-                                    <!-- buttons -->
-                                    <div class="shop-item-buttons text-center">
-                                        <a class="btn btn-light" href="shop-cart.html"><i class="fa fa-cart-plus"></i> Add to Cart</a>
-                                    </div>
-                                    <!-- /buttons -->
-                            </div>
-
-                        </li>
-                        <!-- /ITEM -->
-
-                        <!-- ITEM -->
-                        <li class="col-lg-3">
-
-                            <div class="shop-item">
-
-                                <div class="thumbnail">
-                                    <!-- product image(s) -->
-                                    <a class="shop-item-image" href="shop-single-left.html">
-                                        <!-- CAROUSEL -->
-                                        <div class="owl-carousel m-0" data-plugin-options='{"singleItem": true, "autoPlay": 3000, "navigation": false, "pagination": false, "transitionStyle":"fadeUp"}'>
-                                            <img class="img-fluid" src="https://tangzhengyuan.oss-cn-shanghai.aliyuncs.com/blog/public/assets/demo_files/images/shop/products/300x450/p10.jpg" alt="">
-                                            <img class="img-fluid" src="https://tangzhengyuan.oss-cn-shanghai.aliyuncs.com/blog/public/assets/demo_files/images/shop/products/300x450/p1.jpg" alt="">
-                                            <img class="img-fluid" src="https://tangzhengyuan.oss-cn-shanghai.aliyuncs.com/blog/public/assets/demo_files/images/shop/products/300x450/p14.jpg" alt="">
-                                        </div>
-                                        <!-- /CAROUSEL -->
-                                    </a>
-                                    <!-- /product image(s) -->
-
-                                    <!-- hover buttons -->
-                                    <div class="shop-option-over"><!-- replace data-item-id width the real item ID - used by js/view/demo.shop.js -->
-                                        <a class="btn btn-light add-wishlist" href="#" data-item-id="4" data-toggle="tooltip" title="Add To Wishlist"><i class="fa fa-heart p-0"></i></a>
-                                        <a class="btn btn-light add-compare" href="#" data-item-id="4" data-toggle="tooltip" title="Add To Compare"><i class="fa fa-bar-chart-o p-0" data-toggle="tooltip"></i></a>
-                                    </div>
-                                    <!-- /hover buttons -->
-
-                                    <!-- product more info -->
-                                    <div class="shop-item-info">
-                                        <span class="badge badge-success">NEW</span>
-                                    </div>
-                                    <!-- /product more info -->
-                                </div>
-                                
-                                <div class="shop-item-summary text-center">
-                                    <h2>Long Grey Dress - Special</h2>
+                                    <h2>烟花烫2019春装新款女装甜美修身棉麻绣花网纱七分袖中长连衣裙 枫桥醉 灰蓝色 L</h2>
                                     
                                     <!-- rating -->
                                     <div class="shop-item-rating-line">
@@ -290,14 +139,15 @@
 
                                     <!-- price -->
                                     <div class="shop-item-price">
-                                        $76.00
+                                        <span class="line-through">￥845.00</span>
+                                        ￥299.00
                                     </div>
                                     <!-- /price -->
                                 </div>
 
                                     <!-- buttons -->
                                     <div class="shop-item-buttons text-center">
-                                        <a class="btn btn-light" href="shop-cart.html"><i class="fa fa-cart-plus"></i> Add to Cart</a>
+                                        <a target="_blank" class="btn btn-light" href="https://item.jd.com/31500278830.html?jd_pop=d960dc91-7312-4ca3-bdec-e70fe303e544"><i class="fa fa-cart-plus"></i> 添加到购物车</a>
                                     </div>
                                     <!-- /buttons -->
                             </div>
@@ -306,87 +156,33 @@
                         <!-- /ITEM -->
 
                         <!-- ITEM -->
-                        <li class="col-lg-3">
+                        <li class="col-lg-4">
 
                             <div class="shop-item">
 
                                 <div class="thumbnail">
                                     <!-- product image(s) -->
-                                    <a class="shop-item-image" href="shop-single-left.html">
-                                        <img class="img-fluid" src="https://tangzhengyuan.oss-cn-shanghai.aliyuncs.com/blog/public/assets/demo_files/images/shop/products/300x450/p9.jpg" alt="shop first image" />
+                                    <a target="_blank" class="shop-item-image" href="https://item.jd.com/37651258073.html?jd_pop=aea2caa8-b65f-4c3f-bc84-74c76fdd0af2">
+                                        <img class="img-fluid" src="https://tangzhengyuan.oss-cn-shanghai.aliyuncs.com/blog/public/assets/images/custom/commodity/c03a3bad020edfc6.jpg!cc_350x449.jpg" alt="shop first image" />
                                     </a>
                                     <!-- /product image(s) -->
 
                                     <!-- hover buttons -->
                                     <div class="shop-option-over"><!-- replace data-item-id width the real item ID - used by js/view/demo.shop.js -->
-                                        <a class="btn btn-light add-wishlist" href="#" data-item-id="5" data-toggle="tooltip" title="Add To Wishlist"><i class="fa fa-heart p-0"></i></a>
-                                        <a class="btn btn-light add-compare" href="#" data-item-id="5" data-toggle="tooltip" title="Add To Compare"><i class="fa fa-bar-chart-o p-0" data-toggle="tooltip"></i></a>
+                                        <a target="_blank" class="btn btn-light add-wishlist" href="https://item.jd.com/37651258073.html?jd_pop=aea2caa8-b65f-4c3f-bc84-74c76fdd0af2" data-item-id="3" data-toggle="tooltip" title="加入愿望清单"><i class="fa fa-heart p-0"></i></a>
+                                        <a target="_blank" class="btn btn-light add-compare" href="https://item.jd.com/37651258073.html?jd_pop=aea2caa8-b65f-4c3f-bc84-74c76fdd0af2" data-item-id="3" data-toggle="tooltip" title="加入对比单"><i class="fa fa-bar-chart-o p-0" data-toggle="tooltip"></i></a>
                                     </div>
                                     <!-- /hover buttons -->
-
-
-                                    <!-- product more info -->
-                                    <div class="shop-item-info">
-                                        <span class="badge badge-danger">SALE</span>
-                                    </div>
-                                    <!-- /product more info -->
-                                </div>
-                                
-                                <div class="shop-item-summary text-center">
-                                    <h2>Grey Lady Hat</h2>
                                     
-                                    <!-- rating -->
-                                    <div class="shop-item-rating-line">
-                                        <div class="rating rating-4 fs-13"><!-- rating-0 ... rating-5 --></div>
-                                    </div>
-                                    <!-- /rating -->
-
-                                    <!-- price -->
-                                    <div class="shop-item-price">
-                                        <span class="line-through">$67.00</span>
-                                        $21.00
-                                    </div>
-                                    <!-- /price -->
-                                </div>
-
-                                    <!-- buttons -->
-                                    <div class="shop-item-buttons text-center">
-                                        <a class="btn btn-light" href="shop-cart.html"><i class="fa fa-cart-plus"></i> Add to Cart</a>
-                                    </div>
-                                    <!-- /buttons -->
-                            </div>
-
-                        </li>
-                        <!-- /ITEM -->
-
-                        <!-- ITEM -->
-                        <li class="col-lg-3">
-
-                            <div class="shop-item">
-
-                                <div class="thumbnail">
-                                    <!-- product image(s) -->
-                                    <a class="shop-item-image" href="shop-single-left.html">
-                                        <img class="img-fluid" src="https://tangzhengyuan.oss-cn-shanghai.aliyuncs.com/blog/public/assets/demo_files/images/shop/products/300x450/p8.jpg" alt="shop first image" />
-                                    </a>
-                                    <!-- /product image(s) -->
-
-                                    <!-- hover buttons -->
-                                    <div class="shop-option-over"><!-- replace data-item-id width the real item ID - used by js/view/demo.shop.js -->
-                                        <a class="btn btn-light add-wishlist" href="#" data-item-id="6" data-toggle="tooltip" title="Add To Wishlist"><i class="fa fa-heart p-0"></i></a>
-                                        <a class="btn btn-light add-compare" href="#" data-item-id="6" data-toggle="tooltip" title="Add To Compare"><i class="fa fa-bar-chart-o p-0" data-toggle="tooltip"></i></a>
-                                    </div>
-                                    <!-- /hover buttons -->
-
                                     <!-- countdown -->
                                     <div class="shop-item-counter">
-                                        <div class="countdown" data-from="December 31, 2020 08:22:01" data-labels="years,months,weeks,days,hour,min,sec"><!-- Example Date From: December 31, 2018 15:03:26 --></div>
+                                        <div class="countdown" data-from="2019-02-20 10:00:00" data-labels="年,月,星期,天,小时,分钟,秒"><!-- Example Date From: December 31, 2018 15:03:26 --></div>
                                     </div>
                                     <!-- /countdown -->
                                 </div>
                                 
                                 <div class="shop-item-summary text-center">
-                                    <h2>Beach Black Lady Suit</h2>
+                                    <h2>红蜻蜓 毛衣女套装2019春装新款女装宽松针织衫女连衣裙套装T恤女上衣显瘦打底衫女加半身裙 焦糖色 均码</h2>
                                     
                                     <!-- rating -->
                                     <div class="shop-item-rating-line">
@@ -396,14 +192,14 @@
 
                                     <!-- price -->
                                     <div class="shop-item-price">
-                                        $56.00
+                                        ￥226.00
                                     </div>
                                     <!-- /price -->
                                 </div>
 
                                     <!-- buttons -->
                                     <div class="shop-item-buttons text-center">
-                                        <a class="btn btn-light" href="shop-cart.html"><i class="fa fa-cart-plus"></i> Add to Cart</a>
+                                        <a target="_blank" class="btn btn-light" href="https://item.jd.com/37651258073.html?jd_pop=aea2caa8-b65f-4c3f-bc84-74c76fdd0af2"><i class="fa fa-cart-plus"></i> 加入购物车</a>
                                     </div>
                                     <!-- /buttons -->
                             </div>
@@ -412,110 +208,17 @@
                         <!-- /ITEM -->
 
                         <!-- ITEM -->
-                        <li class="col-lg-3">
+                        <li class="col-lg-4">
 
                             <div class="shop-item">
 
                                 <div class="thumbnail">
                                     <!-- product image(s) -->
-                                    <a class="shop-item-image" href="shop-single-left.html">
-                                        <img class="img-fluid" src="https://tangzhengyuan.oss-cn-shanghai.aliyuncs.com/blog/public/assets/demo_files/images/shop/products/300x450/p7.jpg" alt="shop first image" />
-                                    </a>
-                                    <!-- /product image(s) -->
-
-                                    <!-- hover buttons -->
-                                    <div class="shop-option-over"><!-- replace data-item-id width the real item ID - used by js/view/demo.shop.js -->
-                                        <a class="btn btn-light add-wishlist" href="#" data-item-id="7" data-toggle="tooltip" title="Add To Wishlist"><i class="fa fa-heart p-0"></i></a>
-                                        <a class="btn btn-light add-compare" href="#" data-item-id="7" data-toggle="tooltip" title="Add To Compare"><i class="fa fa-bar-chart-o p-0" data-toggle="tooltip"></i></a>
-                                    </div>
-                                    <!-- /hover buttons -->
-                                </div>
-                                
-                                <div class="shop-item-summary text-center">
-                                    <h2>Town Dress - Black</h2>
-                                    
-                                    <!-- rating -->
-                                    <div class="shop-item-rating-line">
-                                        <div class="rating rating-4 fs-13"><!-- rating-0 ... rating-5 --></div>
-                                    </div>
-                                    <!-- /rating -->
-
-                                    <!-- price -->
-                                    <div class="shop-item-price">
-                                        $154.00
-                                    </div>
-                                    <!-- /price -->
-                                </div>
-
-                                    <!-- buttons -->
-                                    <div class="shop-item-buttons text-center">
-                                        <a class="btn btn-light" href="shop-cart.html"><i class="fa fa-cart-plus"></i> Add to Cart</a>
-                                    </div>
-                                    <!-- /buttons -->
-                            </div>
-
-                        </li>
-                        <!-- /ITEM -->
-
-                        <!-- ITEM -->
-                        <li class="col-lg-3">
-
-                            <div class="shop-item">
-
-                                <div class="thumbnail">
-                                    <!-- product image(s) -->
-                                    <a class="shop-item-image" href="shop-single-left.html">
-                                        <img class="img-fluid" src="https://tangzhengyuan.oss-cn-shanghai.aliyuncs.com/blog/public/assets/demo_files/images/shop/products/300x450/p6.jpg" alt="shop first image" />
-                                        <img class="img-fluid" src="https://tangzhengyuan.oss-cn-shanghai.aliyuncs.com/blog/public/assets/demo_files/images/shop/products/300x450/p14.jpg" alt="shop hover image" />
-                                    </a>
-                                    <!-- /product image(s) -->
-
-                                    <!-- hover buttons -->
-                                    <div class="shop-option-over"><!-- replace data-item-id width the real item ID - used by js/view/demo.shop.js -->
-                                        <a class="btn btn-light add-wishlist" href="#" data-item-id="8" data-toggle="tooltip" title="Add To Wishlist"><i class="fa fa-heart p-0"></i></a>
-                                        <a class="btn btn-light add-compare" href="#" data-item-id="8" data-toggle="tooltip" title="Add To Compare"><i class="fa fa-bar-chart-o p-0" data-toggle="tooltip"></i></a>
-                                    </div>
-                                    <!-- /hover buttons -->
-                                </div>
-                                
-                                <div class="shop-item-summary text-center">
-                                    <h2>Chick Lady Fashion</h2>
-                                    
-                                    <!-- rating -->
-                                    <div class="shop-item-rating-line">
-                                        <div class="rating rating-4 fs-13"><!-- rating-0 ... rating-5 --></div>
-                                    </div>
-                                    <!-- /rating -->
-
-                                    <!-- price -->
-                                    <div class="shop-item-price">
-                                        $167.00
-                                    </div>
-                                    <!-- /price -->
-                                </div>
-
-                                    <!-- buttons -->
-                                    <div class="shop-item-buttons text-center">
-                                        <a class="btn btn-light" href="shop-cart.html"><i class="fa fa-cart-plus"></i> Add to Cart</a>
-                                    </div>
-                                    <!-- /buttons -->
-                            </div>
-
-                        </li>
-                        <!-- /ITEM -->
-
-                        <!-- ITEM -->
-                        <li class="col-lg-3">
-
-                            <div class="shop-item">
-
-                                <div class="thumbnail">
-                                    <!-- product image(s) -->
-                                    <a class="shop-item-image" href="shop-single-left.html">
+                                    <a target="_blank" class="shop-item-image" href="https://item.jd.com/37046449534.html?jd_pop=29a34e27-52ad-41cd-918d-dcd649383a89">
                                         <!-- CAROUSEL -->
-                                        <div class="owl-carousel buttons-autohide controlls-over m-0" data-plugin-options='{"singleItem": true, "autoPlay": 3500, "navigation": false, "pagination": false, "transitionStyle":"fadeUp"}'>
-                                            <img class="img-fluid" src="https://tangzhengyuan.oss-cn-shanghai.aliyuncs.com/blog/public/assets/demo_files/images/shop/products/300x450/p5.jpg" alt="">
-                                            <img class="img-fluid" src="https://tangzhengyuan.oss-cn-shanghai.aliyuncs.com/blog/public/assets/demo_files/images/shop/products/300x450/p1.jpg" alt="">
+                                        <div class="owl-carousel m-0" data-plugin-options='{"singleItem": true, "autoPlay": 3000, "navigation": false, "pagination": false, "transitionStyle":"fadeUp"}'>
+                                            <img class="img-fluid" src="https://tangzhengyuan.oss-cn-shanghai.aliyuncs.com/blog/public/assets/images/custom/commodity/5bee87fcN62d96d23.jpg!cc_350x449%20(1).jpg" alt="">
+                                            <img class="img-fluid" src="https://tangzhengyuan.oss-cn-shanghai.aliyuncs.com/blog/public/assets/images/custom/commodity/5bee87fcNcbadf0db.jpg!cc_350x449%20(1).jpg" alt="">
                                         </div>
                                         <!-- /CAROUSEL -->
                                     </a>
@@ -523,184 +226,37 @@
 
                                     <!-- hover buttons -->
                                     <div class="shop-option-over"><!-- replace data-item-id width the real item ID - used by js/view/demo.shop.js -->
-                                        <a class="btn btn-light add-wishlist" href="#" data-item-id="9" data-toggle="tooltip" title="Add To Wishlist"><i class="fa fa-heart p-0"></i></a>
-                                        <a class="btn btn-light add-compare" href="#" data-item-id="9" data-toggle="tooltip" title="Add To Compare"><i class="fa fa-bar-chart-o p-0" data-toggle="tooltip"></i></a>
-                                    </div>
-                                    <!-- /hover buttons -->
-                                </div>
-                                
-                                <div class="shop-item-summary text-center">
-                                    <h2>Pink Dress 100% Cotton</h2>
-                                    
-                                    <!-- rating -->
-                                    <div class="shop-item-rating-line">
-                                        <div class="rating rating-4 fs-13"><!-- rating-0 ... rating-5 --></div>
-                                    </div>
-                                    <!-- /rating -->
-
-                                    <!-- price -->
-                                    <div class="shop-item-price">
-                                        $44.00
-                                    </div>
-                                    <!-- /price -->
-                                </div>
-
-                                    <!-- buttons -->
-                                    <div class="shop-item-buttons text-center">
-                                        <a class="btn btn-light" href="shop-cart.html"><i class="fa fa-cart-plus"></i> Add to Cart</a>
-                                    </div>
-                                    <!-- /buttons -->
-                            </div>
-
-                        </li>
-                        <!-- /ITEM -->
-
-                        <!-- ITEM -->
-                        <li class="col-lg-3">
-
-                            <div class="shop-item">
-
-                                <div class="thumbnail">
-                                    <!-- product image(s) -->
-                                    <a class="shop-item-image" href="shop-single-left.html">
-                                        <img class="img-fluid" src="https://tangzhengyuan.oss-cn-shanghai.aliyuncs.com/blog/public/assets/demo_files/images/shop/products/300x450/p4.jpg" alt="shop first image" />
-                                    </a>
-                                    <!-- /product image(s) -->
-
-                                    <!-- hover buttons -->
-                                    <div class="shop-option-over"><!-- replace data-item-id width the real item ID - used by js/view/demo.shop.js -->
-                                        <a class="btn btn-light add-wishlist" href="#" data-item-id="10" data-toggle="tooltip" title="Add To Wishlist"><i class="fa fa-heart p-0"></i></a>
-                                        <a class="btn btn-light add-compare" href="#" data-item-id="10" data-toggle="tooltip" title="Add To Compare"><i class="fa fa-bar-chart-o p-0" data-toggle="tooltip"></i></a>
-                                    </div>
-                                    <!-- /hover buttons -->
-                                </div>
-                                
-                                <div class="shop-item-summary text-center">
-                                    <h2>White And Black</h2>
-                                    
-                                    <!-- rating -->
-                                    <div class="shop-item-rating-line">
-                                        <div class="rating rating-4 fs-13"><!-- rating-0 ... rating-5 --></div>
-                                    </div>
-                                    <!-- /rating -->
-
-                                    <!-- price -->
-                                    <div class="shop-item-price">
-                                        $31.00
-                                    </div>
-                                    <!-- /price -->
-                                </div>
-
-                                    <!-- buttons -->
-                                    <div class="shop-item-buttons text-center">
-                                        <a class="btn btn-light" href="shop-cart.html"><i class="fa fa-cart-plus"></i> Add to Cart</a>
-                                    </div>
-                                    <!-- /buttons -->
-                            </div>
-
-                        </li>
-                        <!-- /ITEM -->
-
-                        <!-- ITEM -->
-                        <li class="col-lg-3">
-
-                            <div class="shop-item">
-
-                                <div class="thumbnail">
-                                    <!-- product image(s) -->
-                                    <a class="shop-item-image" href="shop-single-left.html">
-                                        <img class="img-fluid" src="https://tangzhengyuan.oss-cn-shanghai.aliyuncs.com/blog/public/assets/demo_files/images/shop/products/300x450/p11.jpg" alt="shop first image" />
-                                    </a>
-                                    <!-- /product image(s) -->
-
-                                    <!-- hover buttons -->
-                                    <div class="shop-option-over"><!-- replace data-item-id width the real item ID - used by js/view/demo.shop.js -->
-                                        <a class="btn btn-light add-wishlist" href="#" data-item-id="11" data-toggle="tooltip" title="Add To Wishlist"><i class="fa fa-heart p-0"></i></a>
-                                        <a class="btn btn-light add-compare" href="#" data-item-id="11" data-toggle="tooltip" title="Add To Compare"><i class="fa fa-bar-chart-o p-0" data-toggle="tooltip"></i></a>
-                                    </div>
-                                    <!-- /hover buttons -->
-
-                                    <!-- countdown -->
-                                    <div class="shop-item-counter">
-                                        <div class="countdown" data-from="January 12, 2018 12:34:55" data-labels="years,months,weeks,days,hour,min,sec"><!-- Example Date From: December 31, 2018 15:03:26 --></div>
-                                    </div>
-                                    <!-- /countdown -->
-                                </div>
-                                
-                                <div class="shop-item-summary text-center">
-                                    <h2>Long Black Top</h2>
-                                    
-                                    <!-- rating -->
-                                    <div class="shop-item-rating-line">
-                                        <div class="rating rating-4 fs-13"><!-- rating-0 ... rating-5 --></div>
-                                    </div>
-                                    <!-- /rating -->
-
-                                    <!-- price -->
-                                    <div class="shop-item-price">
-                                        $99.00
-                                    </div>
-                                    <!-- /price -->
-                                </div>
-
-                                    <!-- buttons -->
-                                    <div class="shop-item-buttons text-center">
-                                        <a class="btn btn-light" href="shop-cart.html"><i class="fa fa-cart-plus"></i> Add to Cart</a>
-                                    </div>
-                                    <!-- /buttons -->
-                            </div>
-
-                        </li>
-                        <!-- /ITEM -->
-
-                        <!-- ITEM -->
-                        <li class="col-lg-3">
-
-                            <div class="shop-item">
-
-                                <div class="thumbnail">
-                                    <!-- product image(s) -->
-                                    <a class="shop-item-image" href="shop-single-left.html">
-                                        <img class="img-fluid" src="https://tangzhengyuan.oss-cn-shanghai.aliyuncs.com/blog/public/assets/demo_files/images/shop/products/300x450/p2.jpg" alt="shop first image" />
-                                        <img class="img-fluid" src="https://tangzhengyuan.oss-cn-shanghai.aliyuncs.com/blog/public/assets/demo_files/images/shop/products/300x450/p12.jpg" alt="shop hover image" />
-                                    </a>
-                                    <!-- /product image(s) -->
-
-                                    <!-- hover buttons -->
-                                    <div class="shop-option-over"><!-- replace data-item-id width the real item ID - used by js/view/demo.shop.js -->
-                                        <a class="btn btn-light add-wishlist" href="#" data-item-id="12" data-toggle="tooltip" title="Add To Wishlist"><i class="fa fa-heart p-0"></i></a>
-                                        <a class="btn btn-light add-compare" href="#" data-item-id="12" data-toggle="tooltip" title="Add To Compare"><i class="fa fa-bar-chart-o p-0" data-toggle="tooltip"></i></a>
+                                        <a target="_blank" class="btn btn-light add-wishlist" href="#" data-item-id="4" data-toggle="tooltip" title="加入愿望清单"><i class="fa fa-heart p-0"></i></a>
+                                        <a target="_blank" class="btn btn-light add-compare" href="#" data-item-id="4" data-toggle="tooltip" title="加入对比"><i class="fa fa-bar-chart-o p-0" data-toggle="tooltip"></i></a>
                                     </div>
                                     <!-- /hover buttons -->
 
                                     <!-- product more info -->
                                     <div class="shop-item-info">
-                                        <span class="badge badge-success">NEW</span>
-                                        <span class="badge badge-danger">SALE</span>
+                                        <span class="badge badge-success">新款</span>
                                     </div>
                                     <!-- /product more info -->
                                 </div>
                                 
                                 <div class="shop-item-summary text-center">
-                                    <h2>Black Fashion Hat</h2>
+                                    <h2>IEF/爱依服2018秋冬新款韩版长袖针织衫天鹅绒吊带裙时尚套装女9920F-N5517- 静谧蓝色 均码</h2>
                                     
                                     <!-- rating -->
                                     <div class="shop-item-rating-line">
-                                        <div class="rating rating-4 fs-13"><!-- rating-0 ... rating-5 --></div>
+                                        <div class="rating rating-5 fs-13"><!-- rating-0 ... rating-5 --></div>
                                     </div>
                                     <!-- /rating -->
 
                                     <!-- price -->
                                     <div class="shop-item-price">
-                                        <span class="line-through">$77.00</span>
-                                        $65.00
+                                        ￥226.00
                                     </div>
                                     <!-- /price -->
                                 </div>
 
                                     <!-- buttons -->
                                     <div class="shop-item-buttons text-center">
-                                        <a class="btn btn-light" href="shop-cart.html"><i class="fa fa-cart-plus"></i> Add to Cart</a>
+                                        <a target="_blank" class="btn btn-light" href="https://item.jd.com/37046449534.html?jd_pop=29a34e27-52ad-41cd-918d-dcd649383a89"><i class="fa fa-cart-plus"></i> 加入购物车</a>
                                     </div>
                                     <!-- /buttons -->
                             </div>
@@ -715,13 +271,12 @@
                     <!-- Pagination Default -->
                     <div class="text-center">
                         <ul class="pagination">
-                            <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">4</a></li>
-                            <li class="page-item"><a class="page-link" href="#">5</a></li>
-                            <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+                                <li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>
+                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                {{-- <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#">4</a></li> --}}
+                                <li class="page-item disabled"><a class="page-link" href="#">&raquo;</a></li>
                         </ul>
                     </div>
                     <!-- /Pagination Default -->
@@ -855,5 +410,9 @@
         </div>
     </section>
     <!-- / -->
+
+@endsection
+
+@section('scripts')
 
 @endsection

@@ -298,6 +298,7 @@
 
         <script src="https://tangzhengyuan.oss-cn-shanghai.aliyuncs.com/blog/public/assets/js/scripts.js"></script>
         <script src="https://tangzhengyuan.oss-cn-shanghai.aliyuncs.com/blog/public/js/app.js"></script>
+        <script src="https://tangzhengyuan.oss-cn-shanghai.aliyuncs.com/blog/public/js/app.js"></script>
 
         @yield('scripts')
     </body>
