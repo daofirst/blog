@@ -309,7 +309,7 @@
                                     <li><a href="#"><span class="fs-11 text-muted float-right">(0)</span> 饰品</a></li>
                                     <li><a href="#"><span class="fs-11 text-muted float-right">(0)</span> 鞋 &amp; 靴子</a></li>
                                     <li><a href="#"><span class="fs-11 text-muted float-right">(0)</span> 连衣裙 &amp; 裙子和连衣裙</a></li>
-                                    <li class="active"><a href="#"><span class="fs-11 text-muted float-right">(78)</span> 上衣 &amp; 女短衫</a></li>
+                                    <li class="active"><a href="#"><span class="fs-11 text-muted float-right">(3)</span> 上衣 &amp; 女短衫</a></li>
                                 </ul>
                             </li>
                             <li class="list-group-item">
