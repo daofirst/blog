@@ -59,7 +59,7 @@ return [
     |
     */
 
-    'assets_path' => '/vendor/tcg/voyager/assets',
+    'assets_path' => 'https://tangzhengyuan.oss-cn-shanghai.aliyuncs.com/blog/public/vendor/tcg/voyager/assets',
 
     /*
     |--------------------------------------------------------------------------
