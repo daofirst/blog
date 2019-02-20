@@ -20,6 +20,16 @@ Route::get('/home', function () {
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
+
+    // Admin Media
+    Route::group([
+        'as'     => 'media.',
+        'prefix' => 'media',
+        'namespace' => 'Admin'
+    ], function () {
+        Route::post('files', ['uses' => 'VoyagerMediaController@files',              'as' => 'files']);
+        Route::post('upload', ['uses' => 'VoyagerMediaController@upload',             'as' => 'upload']);
+    });
 });
 
 Auth::routes();
