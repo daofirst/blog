@@ -18,7 +18,7 @@ return [
         // However make sure the appointed class must ready to use before installing voyager.
         // Otherwise `php artisan voyager:install` will fail with class not found error.
         'namespace'                    => null,
-        'default_avatar'               => 'users/default.png',
+        'default_avatar'               => 'https://tangzhengyuan.oss-cn-shanghai.aliyuncs.com/users/February2019/xGApGP3WQDOPN5IQJHmB.jpg',
         'redirect'                     => '/admin',
     ],
 

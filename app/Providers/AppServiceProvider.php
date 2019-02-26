@@ -16,6 +16,7 @@ class AppServiceProvider extends ServiceProvider
     {
         //
         // \URL::forceScheme('https');
+        Schema::defaultStringLength(191);
     }
 
     /**
@@ -25,9 +26,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
         Schema::defaultStringLength(191);
-
+        //
         if ($this->app->isLocal()) {
             $this->app->register(TelescopeServiceProvider::class);
         }

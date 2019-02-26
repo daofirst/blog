@@ -164,6 +164,17 @@ return [
          * Package Service Providers...
          */
 
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+
+        // Repository Service Provider
+        App\Providers\RepositoryServiceProvider::class,
+
+        // Oss
+        Jacobcyl\AliOSS\AliOssServiceProvider::class,
+
+        // Shop
+        Aimeos\Shop\ShopServiceProvider::class,
+
         /*
          * Application Service Providers...
          */
@@ -172,14 +183,6 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
-        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
-
-        // Repository Service Provider
-        App\Providers\RepositoryServiceProvider::class,
-
-        // Oss
-        Jacobcyl\AliOSS\AliOssServiceProvider::class,
 
     ],
 
@@ -229,9 +232,6 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
-        // Debugbar Facade
-        'Debugbar' => Barryvdh\Debugbar\Facade::class,
 
     ],
 

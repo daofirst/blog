@@ -33,5 +33,14 @@ class AuthServiceProvider extends ServiceProvider
         Passport::refreshTokensExpireIn(now()->addDays(30));
 
         Passport::cookie('tang_cookie');
+
+        // Keep the lines before
+
+        Gate::define('admin', function($user, $class, $roles) {
+            if( isset( $user->superuser ) && $user->superuser ) {
+                return true;
+            }
+            return app( '\Aimeos\Shop\Base\Support' )->checkUserGroup( $user, $roles );
+        });
     }
 }
