@@ -72,6 +72,25 @@ return [
 	],
 
 	'i18n' => [
+	    "zh_CN" => [
+	        'admin' => [
+                'dashboard' => ['首页'],
+                'subscription' => ['订阅'],
+                'customer' => ['客户'],
+                'product' => ['商品'],
+                'catalog' => ['目录'],
+                'coupon' => ['优惠券'],
+                'plugin' => ['插件'],
+                'locale' => ['本地'],
+                'locale/site' => ['站点'],
+                'type' => ['类型'],
+                'type/attribute' => ['属性'],
+                'Attribute Types' => ['属性列表'],
+                'Domain' => ['类目'],
+                'Status' => ['状态'],
+                'media' => ['媒体'],
+            ]
+        ]
 	],
 
 	'madmin' => [

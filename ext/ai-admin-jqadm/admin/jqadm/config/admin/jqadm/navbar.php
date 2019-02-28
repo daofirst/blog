@@ -2,22 +2,22 @@
 
 return [
 	'dashboard',
-	'order',
+//    'order',
 	'subscription',
 	'customer',
 	'product',
 	'catalog',
 	'attribute',
 	'coupon',
-	'supplier',
+//	'supplier',
 	'service',
 	'plugin',
-	'group',
+//	'group',
 	'locale' => [
-		'locale',
+//		'locale',
 		'locale/site',
-		'locale/language',
-		'locale/currency',
+//		'locale/language',
+//		'locale/currency',
 	],
 	'type' => [
 		'type/attribute',
@@ -42,5 +42,5 @@ return [
 		'type/text',
 		'type/text/lists',
 	],
-	'log',
+//	'log',
 ];
