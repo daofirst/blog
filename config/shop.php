@@ -89,6 +89,16 @@ return [
                 'Domain' => ['类目'],
                 'Status' => ['状态'],
                 'media' => ['媒体'],
+                'supplier' => ['供应商'],
+                'text' => ['文本'],
+                'Type' => ['类型'],
+                'Text Lists Types' => ['文本列表类型配置列表'],
+            ],
+            'mshop/code' => [
+                'status:1' => ['有效'],
+                'status:0' => ['无效'],
+                'status:-1' => ['归档'],
+                'status:-2' => ['二次审核'],
             ]
         ]
 	],

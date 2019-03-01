@@ -55,3 +55,15 @@ msgstr "交货"
 
 msgid "service:payment"
 msgstr "付款"
+
+msgid "status:-1"
+msgstr "归档"
+
+msgid "status:-2"
+msgstr "二次审核"
+
+msgid "status:0"
+msgstr "无效"
+
+msgid "status:1"
+msgstr "有效"

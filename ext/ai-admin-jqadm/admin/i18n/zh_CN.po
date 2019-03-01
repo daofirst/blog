@@ -1726,16 +1726,16 @@ msgid "stat:7"
 msgstr "被退货"
 
 msgid "status:-1"
-msgstr ""
+msgstr "归档"
 
 msgid "status:-2"
-msgstr ""
+msgstr "二次审核"
 
 msgid "status:0"
-msgstr ""
+msgstr "无效"
 
 msgid "status:1"
-msgstr ""
+msgstr "有效"
 
 #, php-format
 msgid "stock"
