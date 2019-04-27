@@ -19,7 +19,7 @@
         "laravel/tinker": "^1.0",
         "prettus/l5-repository": "^2.6",
         "tcg/voyager": "^1.1",
-        "aimeos/aimeos-laravel": "~2019.01",
+        "aimeos/aimeos-laravel": "~2019.01.5",
         "guzzlehttp/guzzle": "~6.0"
     },
     "require-dev": {
