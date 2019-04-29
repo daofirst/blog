@@ -174,7 +174,6 @@ if( isset( $this->detailProductItem ) )
 
 							<?php if( $this->detailProductItem->getType() === 'select' ) : ?>
 								<?php foreach( $getProductList( $this->detailProductItem->getRefItems( 'product', 'default', 'default' ), $prodItems ) as $prodid => $product ) : ?>
-
 									<?php if( ( $prices = $product->getRefItems( 'price', null, 'default' ) ) !== [] ) : ?>
 										<div class="articleitem price"
 											data-prodid="<?= $enc->attr( $prodid ); ?>"
@@ -351,7 +350,6 @@ if( isset( $this->detailProductItem ) )
 				<?php if( $this->detailProductItem->getType() === 'bundle'
 					&& ( $posItems = $this->detailProductItem->getRefItems( 'product', null, 'default' ) ) !== []
 					&& ( $products = $getProductList( $posItems, $prodItems ) ) !== [] ) : ?>
-
 					<section class="catalog-detail-bundle">
 						<h2 class="header"><?= $this->translate( 'client', 'Bundled products' ); ?></h2>
 						<?= $this->partial(
@@ -479,7 +477,7 @@ if( isset( $this->detailProductItem ) )
 					<?php endif; ?>
 
 					<?php $mediaList = $this->get( 'detailMediaItems', [] ); ?>
-					<?php if( ( $mediaItems = $this->detailProductItem->getRefItems( 'media', null, 'download' ) ) !== [] ) : ?>
+					<?php if( ( $mediaItems = $this->detailProductItem->getRefItems( 'media', 'download' ) ) !== [] ) : ?>
 						<div class="additional-box">
 							<h2 class="header downloads"><?= $enc->html( $this->translate( 'client', 'Downloads' ), $enc::TRUST ); ?></h2>
 							<ul class="content downloads">
@@ -504,7 +502,6 @@ if( isset( $this->detailProductItem ) )
 
 				<?php if( ( $posItems = $this->detailProductItem->getRefItems( 'product', null, 'suggestion' ) ) !== []
 					&& ( $products = $getProductList( $posItems, $prodItems ) ) !== [] ) : ?>
-
 					<section class="catalog-detail-suggest">
 						<h2 class="header"><?= $this->translate( 'client', 'Suggested products' ); ?></h2>
 						<?= $this->partial(
@@ -518,7 +515,6 @@ if( isset( $this->detailProductItem ) )
 
 				<?php if( ( $posItems = $this->detailProductItem->getRefItems( 'product', null, 'bought-together' ) ) !== []
 					&& ( $products = $getProductList( $posItems, $prodItems ) ) !== [] ) : ?>
-
 					<section class="catalog-detail-bought">
 						<h2 class="header"><?= $this->translate( 'client', 'Other customers also bought' ); ?></h2>
 						<?= $this->partial(

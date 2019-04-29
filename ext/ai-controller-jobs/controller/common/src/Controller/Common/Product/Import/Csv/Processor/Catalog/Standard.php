@@ -134,7 +134,7 @@ class Standard
 			$listItems = $this->getListItems( $prodid, $this->listTypes );
 
 			foreach( $listItems as $listItem ) {
-				$listMap[ $listItem->getParentId() ][ $listItem->getType() ] = $listItem;
+				$listMap[$listItem->getParentId()][$listItem->getType()] = $listItem;
 			}
 
 			foreach( $map as $pos => $list )
@@ -163,14 +163,14 @@ class Standard
 					if( isset( $listMap[$catid][$listtype] ) )
 					{
 						$listItem = $listMap[$catid][$listtype];
-						unset( $listItems[ $listItem->getId() ] );
+						unset( $listItems[$listItem->getId()] );
 					}
 					else
 					{
 						$listItem = $listManager->createItem()->setType( $listtype );
 					}
 
-					$listItem = $listItem->setPosition( $pos++ )->fromArray( $list );
+					$listItem = $listItem->setPosition( $pos++ )->fromArray( $list, true );
 					$listManager->saveItem( $listItem, false );
 				}
 			}
@@ -237,27 +237,23 @@ class Standard
 	 * Returns the catalog list items for the given category and product ID
 	 *
 	 * @param string $prodid Unique product ID
-	 * @param array|null $types List of catalog list types
+	 * @param array $types List of catalog list types
 	 * @return array List of catalog list items
 	 */
-	protected function getListItems( $prodid, $types )
+	protected function getListItems( $prodid, array $types )
 	{
-		$manager = \Aimeos\MShop::create( $this->getContext(), 'catalog/lists' );
-		$search = $manager->createSearch();
-
-		$expr = array(
-			$search->compare( '==', 'catalog.lists.domain', 'product' ),
-			$search->compare( '==', 'catalog.lists.refid', $prodid ),
-		);
-
-		if( $types !== null ) {
-			$expr[] = $search->compare( '==', 'catalog.lists.type', $types );
+		if( empty( $types ) ) {
+			return [];
 		}
 
-		$search->setConditions( $search->combine( '&&', $expr ) );
-		$search->setSortations( array( $search->sort( '+', 'catalog.lists.position' ) ) );
-		$search->setSlice( 0, 0x7FFFFFFF );
+		$manager = \Aimeos\MShop::create( $this->getContext(), 'catalog/lists' );
+		$search = $manager->createSearch()->setSlice( 0, 0x7FFFFFFF );
+		$expr = [];
 
-		return $manager->searchItems( $search );
+		foreach( $types as $type ) {
+			$expr[] = $search->compare( '==', 'catalog.lists.key', 'product|' . $type . '|' . $prodid );
+		}
+
+		return $manager->searchItems( $search->setConditions( $search->combine( '||', $expr ) ) );
 	}
 }

@@ -176,56 +176,28 @@ return array(
 						GROUP BY "key"
 					',
 				),
-				'getposmax' => array(
-					'ansi' => '
-						SELECT MAX( "pos" ) AS pos
-						FROM "users_list"
-						WHERE "siteid" = ?
-							AND "parentid" = ?
-							AND "type" = ?
-							AND "domain" = ?
-					',
-				),
-				'insert' => array(
-					'ansi' => '
-						INSERT INTO "users_list"(
-							"parentid", "type", "domain", "refid", "start", "end",
-						"config", "pos", "status", "mtime", "editor", "siteid", "ctime"
-						) VALUES (
-							?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
-						)
-					',
-				),
-				'update' => array(
-					'ansi' => '
-						UPDATE "users_list"
-						SET "parentid"=?, "type" = ?, "domain" = ?, "refid" = ?, "start" = ?, "end" = ?,
-							"config" = ?, "pos" = ?, "status" = ?, "mtime" = ?, "editor" = ?
-						WHERE "siteid" = ? AND "id" = ?
-					',
-				),
-				'updatepos' => array(
-					'ansi' => '
-						UPDATE "users_list"
-							SET "pos" = ?, "mtime" = ?, "editor" = ?
-						WHERE "siteid" = ? AND "id" = ?
-					',
-				),
 				'delete' => array(
 					'ansi' => '
 						DELETE FROM "users_list"
 						WHERE :cond AND siteid = ?
 					',
 				),
-				'move' => array(
+				'insert' => array(
+					'ansi' => '
+						INSERT INTO "users_list"(
+							"parentid", "key", "type", "domain", "refid", "start", "end",
+						"config", "pos", "status", "mtime", "editor", "siteid", "ctime"
+						) VALUES (
+							?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+						)
+					',
+				),
+				'update' => array(
 					'ansi' => '
 						UPDATE "users_list"
-							SET "pos" = "pos" + ?, "mtime" = ?, "editor" = ?
-						WHERE "siteid" = ?
-							AND "parentid" = ?
-							AND "type" = ?
-							AND "domain" = ?
-							AND "pos" >= ?
+						SET "parentid"=?, "key" = ?, "type" = ?, "domain" = ?, "refid" = ?, "start" = ?, "end" = ?,
+							"config" = ?, "pos" = ?, "status" = ?, "mtime" = ?, "editor" = ?
+						WHERE "siteid" = ? AND "id" = ?
 					',
 				),
 				'search' => array(
@@ -348,17 +320,17 @@ return array(
 				'insert' => array(
 					'ansi' => '
 						INSERT INTO "users_property" (
-							"parentid", "type", "langid", "value",
+							"parentid", "key", "type", "langid", "value",
 							"mtime", "editor", "siteid", "ctime"
 						) VALUES (
-							?, ?, ?, ?, ?, ?, ?, ?
+							?, ?, ?, ?, ?, ?, ?, ?, ?
 						)
 					'
 				),
 				'update' => array(
 					'ansi' => '
 						UPDATE "users_property"
-						SET "parentid" = ?, "type" = ?, "langid" = ?,
+						SET "parentid" = ?, "key" = ?, "type" = ?, "langid" = ?,
 							"value" = ?, "mtime" = ?, "editor" = ?
 						WHERE "siteid" = ? AND "id" = ?
 					'
@@ -413,26 +385,26 @@ return array(
 			'insert' => array(
 				'ansi' => '
 					INSERT INTO "users" (
-						"siteid", "name", "company", "vatid", "salutation", "title",
+						"siteid", "name", "email", "company", "vatid", "salutation", "title",
 						"firstname", "lastname", "address1", "address2", "address3",
 						"postal", "city", "state", "countryid", "langid", "telephone",
-						"telefax", "website", "email", "longitude", "latitude", "label",
+						"telefax", "website", "longitude", "latitude",
 						"birthday", "status", "vdate", "password",
 						"updated_at", "editor", "created_at"
 					) VALUES (
-						?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?
+						?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?
 					)
 				',
 			),
 			'update' => array(
 				'ansi' => '
 					UPDATE "users"
-					SET "siteid" = ?, "name" = ?, "company" = ?, "vatid" = ?,
+					SET "siteid" = ?, "name" = ?, "email" = ?, "company" = ?, "vatid" = ?,
 						"salutation" = ?, "title" = ?, "firstname" = ?, "lastname" = ?,
 						"address1" = ?, "address2" = ?, "address3" = ?, "postal" = ?,
 						"city" = ?, "state" = ?, "countryid" = ?, "langid" = ?,
-						"telephone" = ?, "telefax" = ?, "website" = ?, "email" = ?,
-						"longitude" = ?, "latitude" = ?, "label" = ?, "birthday" = ?,
+						"telephone" = ?, "telefax" = ?, "website" = ?,
+						"longitude" = ?, "latitude" = ?, "birthday" = ?,
 						"status" = ?, "vdate" = ?, "password" = ?, "updated_at" = ?, "editor" = ?
 					WHERE "id" = ?
 				',
@@ -440,7 +412,7 @@ return array(
 			'search' => array(
 				'ansi' => '
 					SELECT lvu."id" AS "customer.id", lvu."siteid" AS "customer.siteid",
-						lvu."label" AS "customer.label", lvu."name" AS "customer.code",
+						lvu."name" AS "customer.label", lvu."email" AS "customer.code",
 						lvu."company" AS "customer.company", lvu."vatid" AS "customer.vatid",
 						lvu."salutation" AS "customer.salutation", lvu."title" AS "customer.title",
 						lvu."firstname" AS "customer.firstname", lvu."lastname" AS "customer.lastname",
@@ -458,7 +430,7 @@ return array(
 					FROM "users" AS lvu
 					:joins
 					WHERE :cond
-					GROUP BY lvu."id", lvu."siteid", lvu."label", lvu."name", lvu."company", lvu."vatid",
+					GROUP BY lvu."id", lvu."siteid", lvu."name", lvu."company", lvu."vatid",
 						lvu."salutation", lvu."title", lvu."firstname", lvu."lastname",
 						lvu."address1", lvu."address2", lvu."address3", lvu."postal",
 						lvu."city", lvu."state", lvu."countryid", lvu."langid",

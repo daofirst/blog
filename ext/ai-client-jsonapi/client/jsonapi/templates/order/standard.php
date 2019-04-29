@@ -24,7 +24,7 @@ foreach( (array) $fields as $resource => $list ) {
 }
 
 
-$entryFcn = function( \Aimeos\MShop\Order\Item\Iface $item, \Aimeos\MShop\Common\Item\Helper\Form\Iface $form = null ) use ( $fields, $target, $cntl, $action, $config )
+$entryFcn = function( \Aimeos\MShop\Order\Item\Iface $item, \Aimeos\MShop\Common\Helper\Form\Iface $form = null ) use ( $fields, $target, $cntl, $action, $config )
 {
 	$id = $item->getId();
 	$attributes = $item->toArray();
@@ -82,11 +82,9 @@ $entryFcn = function( \Aimeos\MShop\Order\Item\Iface $item, \Aimeos\MShop\Common
 	}
 
 	<?php if( isset( $this->errors ) ) : ?>
-
 		,"errors": <?= json_encode( $this->errors, JSON_PRETTY_PRINT ); ?>
 
 	<?php elseif( isset( $this->items ) ) : ?>
-
 		<?php
 			$data = [];
 			$items = $this->get( 'items', [] );

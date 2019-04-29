@@ -57,8 +57,8 @@ class Base
 
 		if( ctype_alnum( $type ) === false )
 		{
-			$classname = is_string($name) ? '\\Aimeos\\Controller\\Common\\Product\\Import\\Csv\\Cache\\' . $type : '<not a string>';
-			throw new \Aimeos\Controller\Jobs\Exception( sprintf( 'Invalid characters in class name "%1$s"', $classname ) );
+			$classname = is_string( $name ) ? '\\Aimeos\\Controller\\Common\\Product\\Import\\Csv\\Cache\\' . $type : '<not a string>';
+			throw new \Aimeos\Controller\Common\Exception( sprintf( 'Invalid characters in class name "%1$s"', $classname ) );
 		}
 
 		if( $name === null ) {
@@ -67,14 +67,14 @@ class Base
 
 		if( ctype_alnum( $name ) === false )
 		{
-			$classname = is_string($name) ? '\\Aimeos\\Controller\\Common\\Product\\Import\\Csv\\Cache\\' . $type . '\\' . $name : '<not a string>';
-			throw new \Aimeos\Controller\Jobs\Exception( sprintf( 'Invalid characters in class name "%1$s"', $classname ) );
+			$classname = is_string( $name ) ? '\\Aimeos\\Controller\\Common\\Product\\Import\\Csv\\Cache\\' . $type . '\\' . $name : '<not a string>';
+			throw new \Aimeos\Controller\Common\Exception( sprintf( 'Invalid characters in class name "%1$s"', $classname ) );
 		}
 
 		$classname = '\\Aimeos\\Controller\\Common\\Product\\Import\\Csv\\Cache\\' . ucfirst( $type ) . '\\' . $name;
 
 		if( class_exists( $classname ) === false ) {
-			throw new \Aimeos\Controller\Jobs\Exception( sprintf( 'Class "%1$s" not found', $classname ) );
+			throw new \Aimeos\Controller\Common\Exception( sprintf( 'Class "%1$s" not found', $classname ) );
 		}
 
 		$object = new $classname( $context );
@@ -119,7 +119,7 @@ class Base
 		while( $content->valid() && $count++ < $maxcnt )
 		{
 			$row = $content->current();
-			$data[ $row[$codePos] ] = $row;
+			$data[$row[$codePos]] = $row;
 			$content->next();
 		}
 
@@ -256,22 +256,22 @@ class Base
 		{
 			if( ctype_alnum( $type ) === false )
 			{
-				$classname = is_string($type) ? '\\Aimeos\\Controller\\Common\\Product\\Import\\Csv\\Processor\\' . $type : '<not a string>';
-				throw new \Aimeos\Controller\Jobs\Exception( sprintf( 'Invalid characters in class name "%1$s"', $classname ) );
+				$classname = is_string( $type ) ? '\\Aimeos\\Controller\\Common\\Product\\Import\\Csv\\Processor\\' . $type : '<not a string>';
+				throw new \Aimeos\Controller\Common\Exception( sprintf( 'Invalid characters in class name "%1$s"', $classname ) );
 			}
 
 			$name = $config->get( 'controller/common/product/import/csv/processor/' . $type . '/name', 'Standard' );
 
 			if( ctype_alnum( $name ) === false )
 			{
-				$classname = is_string($name) ? '\\Aimeos\\Controller\\Common\\Product\\Import\\Csv\\Processor\\' . $type . '\\' . $name : '<not a string>';
-				throw new \Aimeos\Controller\Jobs\Exception( sprintf( 'Invalid characters in class name "%1$s"', $classname ) );
+				$classname = is_string( $name ) ? '\\Aimeos\\Controller\\Common\\Product\\Import\\Csv\\Processor\\' . $type . '\\' . $name : '<not a string>';
+				throw new \Aimeos\Controller\Common\Exception( sprintf( 'Invalid characters in class name "%1$s"', $classname ) );
 			}
 
 			$classname = '\\Aimeos\\Controller\\Common\\Product\\Import\\Csv\\Processor\\' . ucfirst( $type ) . '\\' . $name;
 
 			if( class_exists( $classname ) === false ) {
-				throw new \Aimeos\Controller\Jobs\Exception( sprintf( 'Class "%1$s" not found', $classname ) );
+				throw new \Aimeos\Controller\Common\Exception( sprintf( 'Class "%1$s" not found', $classname ) );
 			}
 
 			$object = new $classname( $context, $mapping, $object );
@@ -300,7 +300,7 @@ class Base
 		$search->setSlice( 0, count( $codes ) );
 
 		foreach( $manager->searchItems( $search, $domains ) as $item ) {
-			$result[ $item->getCode() ] = $item;
+			$result[$item->getCode()] = $item;
 		}
 
 		return $result;

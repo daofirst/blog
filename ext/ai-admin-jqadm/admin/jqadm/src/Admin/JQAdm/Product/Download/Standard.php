@@ -317,7 +317,7 @@ class Standard
 	 * Creates new and updates existing items using the data array
 	 *
 	 * @param \Aimeos\MShop\Product\Item\Iface $item Product item object without referenced domain items
-	 * @param string[] $data Data array
+	 * @param array $data Data array
 	 */
 	protected function fromArray( \Aimeos\MShop\Product\Item\Iface $item, array $data )
 	{
@@ -346,8 +346,8 @@ class Standard
 				$refItem = clone $attrItem;
 			}
 
-			$litem->fromArray( $data );
-			$refItem->fromArray( $data );
+			$litem->fromArray( $data, true );
+			$refItem->fromArray( $data, true );
 
 			if( ( $file = $this->getValue( (array) $this->getView()->request()->getUploadedFiles(), 'download/file' ) ) !== null
 				&& $file->getError() === UPLOAD_ERR_OK

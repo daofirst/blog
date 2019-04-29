@@ -435,7 +435,7 @@ class Standard
 		$search = $manager->createSearch()->setSlice( 0, count( $baseIds ) );
 		$search->setConditions( $search->compare( '==', 'order.base.id', $baseIds ) );
 
-		return $manager->searchItems( $search, ['order/base/address', 'order/base/service'] );
+		return $manager->searchItems( $search, ['order/base/address', 'order/base/coupon', 'order/base/service'] );
 	}
 
 
@@ -486,7 +486,7 @@ class Standard
 	/**
 	 * Creates new and updates existing items using the data array
 	 *
-	 * @param string[] Data array
+	 * @param array $data Data array
 	 * @return \Aimeos\MShop\Order\Item\Iface New order item object
 	 */
 	protected function fromArray( array $data )
@@ -495,12 +495,12 @@ class Standard
 		$attrManager = \Aimeos\MShop::create( $this->getContext(), 'order/base/service/attribute' );
 
 		if( isset( $data['order.base.id'] ) ) {
-			$basket = $manager->load( $data['order.base.id'] );
+			$basket = $manager->load( $data['order.base.id'] )->off();
 		} else {
-			$basket = $manager->createItem();
+			$basket = $manager->createItem()->off();
 		}
 
-		$basket->fromArray( $data );
+		$basket->fromArray( $data, true );
 
 		foreach( $basket->getProducts() as $pos => $product )
 		{
@@ -509,13 +509,16 @@ class Standard
 			}
 		}
 
-		foreach( $basket->getAddresses() as $type => $address )
+		foreach( $basket->getAddresses() as $type => $addresses )
 		{
-			if( isset( $data['address'][$type] ) ) {
-				$list = (array) $data['address'][$type];
-				$basket->setAddress( $address->fromArray( $list ), $type );
-			} else {
-				$basket->deleteAddress( $type );
+			foreach( $addresses as $pos => $address )
+			{
+				if( isset( $data['address'][$type][$pos] ) ) {
+					$list = (array) $data['address'][$type][$pos];
+					$basket->addAddress( $address->fromArray( $list, true ), $type, $pos );
+				} else {
+					$basket->deleteAddress( $type, $pos );
+				}
 			}
 		}
 
@@ -547,7 +550,7 @@ class Standard
 							$attrItem = $attrManager->createItem();
 						}
 
-						$attrItem->fromArray( $array );
+						$attrItem->fromArray( $array, true );
 						$attrItem->setParentId( $service->getId() );
 
 						$item = $attrManager->saveItem( $attrItem );
@@ -589,18 +592,21 @@ class Standard
 			$data['order.base.id'] = '';
 		}
 
-		foreach( $item->getAddresses() as $type => $addrItem )
+		foreach( $item->getAddresses() as $type => $addresses )
 		{
-			$list = $addrItem->toArray( true );
-
-			foreach( $list as $key => $value ) {
-				$data['address'][$type][$key] = $value;
-			}
-
-			if( $copy === true )
+			foreach( $addresses as $pos => $addrItem )
 			{
-				$data['address'][$type]['order.base.address.siteid'] = $siteId;
-				$data['address'][$type]['order.base.address.id'] = '';
+				$list = $addrItem->toArray( true );
+
+				foreach( $list as $key => $value ) {
+					$data['address'][$type][$pos][$key] = $value;
+				}
+
+				if( $copy === true )
+				{
+					$data['address'][$type][$pos]['order.base.address.siteid'] = $siteId;
+					$data['address'][$type][$pos]['order.base.address.id'] = '';
+				}
 			}
 		}
 

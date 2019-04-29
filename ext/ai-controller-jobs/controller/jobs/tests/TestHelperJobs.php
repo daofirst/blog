@@ -93,6 +93,10 @@ class TestHelperJobs
 		$ctx->setSession( $session );
 
 
+		$process = new \Aimeos\MW\Process\None();
+		$ctx->setProcess( $process );
+
+
 		$i18n = new \Aimeos\MW\Translation\None( 'de' );
 		$ctx->setI18n( array( 'de' => $i18n ) );
 
@@ -106,7 +110,7 @@ class TestHelperJobs
 		$ctx->setView( $view );
 
 
-		$ctx->setEditor( 'core:controller/jobs' );
+		$ctx->setEditor( 'ai-controller-jobs:cntl/jobs' );
 
 		return $ctx;
 	}

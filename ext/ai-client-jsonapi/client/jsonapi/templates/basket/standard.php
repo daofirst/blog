@@ -173,28 +173,31 @@ $serviceFcn = function( \Aimeos\MShop\Order\Item\Base\Iface $item, $basketId ) u
 
 $addressFcn = function( \Aimeos\MShop\Order\Item\Base\Iface $item, $basketId ) use ( $fields, $target, $cntl, $action, $config )
 {
-	$addresses = [];
+	$list = [];
 
-	foreach( $item->getAddresses() as $type => $address )
+	foreach( $item->getAddresses() as $type => $addresses )
 	{
-		$entry = ['id' => $type, 'type' => 'basket/address'];
-		$entry['attributes'] = $address->toArray();
-
-		if( $item->getId() === null )
+		foreach( $addresses as $address )
 		{
-			$params = ['resource' => 'basket', 'id' => $basketId, 'related' => 'address', 'relatedid' => $type];
-			$entry['links'] = array(
-				'self' => array(
-					'href' => $this->url( $target, $cntl, $action, $params, [], $config ),
-					'allow' => ['DELETE'],
-				),
-			);
-		}
+			$entry = ['id' => $type, 'type' => 'basket/address'];
+			$entry['attributes'] = $address->toArray();
 
-		$addresses[] = $entry;
+			if( $item->getId() === null )
+			{
+				$params = ['resource' => 'basket', 'id' => $basketId, 'related' => 'address', 'relatedid' => $type];
+				$entry['links'] = array(
+					'self' => array(
+						'href' => $this->url( $target, $cntl, $action, $params, [], $config ),
+						'allow' => ['DELETE'],
+					),
+				);
+			}
+
+			$list[] = $entry;
+		}
 	}
 
-	return $addresses;
+	return $list;
 };
 
 
@@ -224,18 +227,6 @@ $couponFcn = function( \Aimeos\MShop\Order\Item\Base\Iface $item, $basketId ) us
 };
 
 
-$allowed = '["GET"]';
-if( isset( $this->item ) && $this->item->getId() === null )
-{
-	try {
-		$this->item->check();
-		$allowed = '["DELETE","GET","PATCH","POST"]';
-	} catch( \Aimeos\MShop\Exception $e ) {
-		$allowed = '["DELETE","GET","PATCH"]';
-	}
-}
-
-
 ?>
 {
 	"meta": {
@@ -254,7 +245,7 @@ if( isset( $this->item ) && $this->item->getId() === null )
 	"links": {
 		"self": {
 			"href": "<?= $this->url( $target, $cntl, $action, $params, [], $config ); ?>",
-			"allow": <?= $allowed; ?>
+			"allow": <?= isset( $this->item ) && $this->item->getId() ? '["GET"]' : '["DELETE","GET","PATCH","POST"]' ?>
 
 		}
 
@@ -289,7 +280,6 @@ if( isset( $this->item ) && $this->item->getId() === null )
 	},
 
 	<?php if( isset( $this->errors ) ) : ?>
-
 		"errors": <?= json_encode( $this->errors, JSON_PRETTY_PRINT ); ?>
 
 	<?php elseif( isset( $this->item ) ) : ?>

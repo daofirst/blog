@@ -65,45 +65,68 @@ class BaseTest extends \PHPUnit\Framework\TestCase
 	}
 
 
-	public function testCreateFilter()
+	public function testCompare()
 	{
-		$search = \Aimeos\MShop::create( $this->context, 'supplier' )->createSearch();
-
-		$this->stub->expects( $this->once() )->method( 'createFilter' )
-			->will( $this->returnValue( $search ) );
-
-		$this->assertInstanceOf( \Aimeos\MW\Criteria\Iface::class, $this->object->createFilter() );
+		$this->assertSame( $this->object, $this->object->compare( '==', 'supplier.status', 1 ) );
 	}
 
 
-	public function testGetItem()
+	public function testFind()
+	{
+		$item = \Aimeos\MShop::create( $this->context, 'supplier' )->createItem();
+		$expected = \Aimeos\MShop\Supplier\Item\Iface::class;
+
+		$this->stub->expects( $this->once() )->method( 'find' )
+			->will( $this->returnValue( $item ) );
+
+		$this->assertInstanceOf( $expected, $this->object->find( 'test' ) );
+	}
+
+
+	public function testGet()
+	{
+		$item = \Aimeos\MShop::create( $this->context, 'supplier' )->createItem();
+		$expected = \Aimeos\MShop\Supplier\Item\Iface::class;
+
+		$this->stub->expects( $this->once() )->method( 'get' )
+			->will( $this->returnValue( $item ) );
+
+		$this->assertInstanceOf( $expected, $this->object->get( 1 ) );
+	}
+
+
+	public function testParse()
+	{
+		$this->assertSame( $this->object, $this->object->parse( [] ) );
+	}
+
+
+	public function testSearch()
 	{
 		$item = \Aimeos\MShop::create( $this->context, 'supplier' )->createItem();
 
-		$this->stub->expects( $this->once() )->method( 'getItem' )
-			->will( $this->returnValue( $item ) );
+		$this->stub->expects( $this->once() )->method( 'search' )
+			->will( $this->returnValue( [$item] ) );
 
-		$this->assertInstanceOf( \Aimeos\MShop\Supplier\Item\Iface::class, $this->object->getItem( -1 ) );
+		$this->assertEquals( [$item], $this->object->search() );
 	}
 
 
-	public function testGetItems()
+	public function testSlice()
 	{
-		$this->stub->expects( $this->once() )->method( 'getItems' )
-			->will( $this->returnValue( [] ) );
-
-		$this->assertEquals( [], $this->object->getItems( [-1], ['media'] ) );
+		$this->assertSame( $this->object, $this->object->slice( 0, 100 ) );
 	}
 
 
-	public function testSearchItems()
+	public function testSort()
 	{
-		$filter = \Aimeos\MShop::create( $this->context, 'supplier' )->createSearch();
+		$this->assertSame( $this->object, $this->object->sort( 'supplier.label' ) );
+	}
 
-		$this->stub->expects( $this->once() )->method( 'searchItems' )
-			->will( $this->returnValue( [] ) );
 
-		$this->assertEquals( [], $this->object->searchItems( $filter, ['media'] ) );
+	public function testUses()
+	{
+		$this->assertSame( $this->object, $this->object->uses( ['text'] ) );
 	}
 
 

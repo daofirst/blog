@@ -30,8 +30,6 @@ class StandardTest extends \PHPUnit\Framework\TestCase
 	protected function tearDown()
 	{
 		\Aimeos\MShop::cache( false );
-		\Aimeos\MShop::clear();
-
 		unset( $this->object, $this->context, $this->aimeos );
 	}
 
@@ -63,7 +61,7 @@ class StandardTest extends \PHPUnit\Framework\TestCase
 			->setMethods( ['searchItems', 'saveItem'] )
 			->getMock();
 
-		\Aimeos\MShop::inject( $this->context, 'subscription', $managerStub );
+		\Aimeos\MShop::inject( 'subscription', $managerStub );
 
 		$object->expects( $this->once() )->method( 'createOrderBase' )
 			->will( $this->returnValue( $this->getOrderBaseItem( $item->getOrderBaseId() ) ) );
@@ -91,7 +89,7 @@ class StandardTest extends \PHPUnit\Framework\TestCase
 			->setMethods( ['searchItems', 'saveItem'] )
 			->getMock();
 
-		\Aimeos\MShop::inject( $this->context, 'subscription', $managerStub );
+		\Aimeos\MShop::inject( 'subscription', $managerStub );
 
 		$managerStub->expects( $this->once() )->method( 'searchItems' )
 			->will( $this->returnValue( [$managerStub->createItem()] ) );
@@ -107,11 +105,11 @@ class StandardTest extends \PHPUnit\Framework\TestCase
 		$basket = \Aimeos\MShop::create( $this->context, 'order/base' )->createItem();
 		$address = \Aimeos\MShop::create( $this->context, 'order/base/address' )->createItem();
 
-		$addresses = ['payment' => $address];
+		$addresses = ['payment' => [$address]];
 		$basket = $this->access( 'addBasketAddresses' )->invokeArgs( $this->object, [$this->context, $basket, $addresses] );
 
 		$this->assertEquals( 1, count( $basket->getAddresses() ) );
-		$this->assertInstanceOf( \Aimeos\MShop\Order\Item\Base\Address\Iface::class, $basket->getAddress( 'payment' ) );
+		$this->assertInstanceOf( \Aimeos\MShop\Order\Item\Base\Address\Iface::class, $basket->getAddress( 'payment', 0 ) );
 	}
 
 
@@ -189,7 +187,7 @@ class StandardTest extends \PHPUnit\Framework\TestCase
 			->setMethods( ['store'] )
 			->getMock();
 
-		\Aimeos\MShop::inject( $this->context, 'order/base', $managerStub );
+		\Aimeos\MShop::inject( 'order/base', $managerStub );
 
 		$managerStub->expects( $this->once() )->method( 'store' );
 
@@ -207,7 +205,7 @@ class StandardTest extends \PHPUnit\Framework\TestCase
 			->setMethods( ['saveItem'] )
 			->getMock();
 
-		\Aimeos\MShop::inject( $this->context, 'order', $managerStub );
+		\Aimeos\MShop::inject( 'order', $managerStub );
 
 		$managerStub->expects( $this->once() )->method( 'saveItem' );
 
@@ -226,7 +224,7 @@ class StandardTest extends \PHPUnit\Framework\TestCase
 			->setMethods( ['saveItem'] )
 			->getMock();
 
-		\Aimeos\MShop::inject( $this->context, 'order', $managerStub );
+		\Aimeos\MShop::inject( 'order', $managerStub );
 
 		$managerStub->expects( $this->once() )->method( 'saveItem' );
 

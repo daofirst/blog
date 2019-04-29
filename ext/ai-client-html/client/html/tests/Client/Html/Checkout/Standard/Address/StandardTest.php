@@ -19,6 +19,7 @@ class StandardTest extends \PHPUnit\Framework\TestCase
 	protected function setUp()
 	{
 		$this->context = \TestHelperHtml::getContext();
+		$this->context->setUserId( \Aimeos\MShop::create( $this->context, 'customer' )->findItem( 'UTC001' )->getId() );
 
 		$this->object = new \Aimeos\Client\Html\Checkout\Standard\Address\Standard( $this->context );
 		$this->object->setView( \TestHelperHtml::getView() );
@@ -70,6 +71,7 @@ class StandardTest extends \PHPUnit\Framework\TestCase
 		$view = $this->object->getView();
 		$view->standardStepActive = 'address';
 		$view->standardSteps = array( 'address', 'after' );
+		$view->standardBasket = \Aimeos\MShop::create( $this->context, 'order/base' )->createItem();
 		$this->object->setView( $this->object->addData( $view ) );
 
 		$output = $this->object->getBody();

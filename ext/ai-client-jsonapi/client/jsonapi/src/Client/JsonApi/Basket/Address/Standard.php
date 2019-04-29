@@ -76,17 +76,23 @@ class Standard
 						throw new \Aimeos\Client\JsonApi\Exception( sprintf( 'Type (ID) is missing' ) );
 					}
 
-					$this->controller->setAddress( $entry->id, null );
+					$this->controller->deleteAddress( $entry->id );
 				}
 			}
 			else
 			{
-				$this->controller->setAddress( $relId, null );
+				$this->controller->deleteAddress( $relId );
 			}
 
 
 			$view->item = $this->controller->get();
 			$status = 200;
+		}
+		catch( \Aimeos\MShop\Plugin\Provider\Exception $e )
+		{
+			$status = 409;
+			$errors = $this->translatePluginErrorCodes( $e->getErrorCodes() );
+			$view->errors = $this->getErrorDetails( $e, 'mshop' ) + $errors;
 		}
 		catch( \Aimeos\MShop\Exception $e )
 		{
@@ -135,12 +141,18 @@ class Standard
 					throw new \Aimeos\Client\JsonApi\Exception( sprintf( 'Address type or attributes are missing' ) );
 				}
 
-				$this->controller->setAddress( $entry->id, (array) $entry->attributes );
+				$this->controller->addAddress( $entry->id, (array) $entry->attributes );
 			}
 
 
 			$view->item = $this->controller->get();
 			$status = 201;
+		}
+		catch( \Aimeos\MShop\Plugin\Provider\Exception $e )
+		{
+			$status = 409;
+			$errors = $this->translatePluginErrorCodes( $e->getErrorCodes() );
+			$view->errors = $this->getErrorDetails( $e, 'mshop' ) + $errors;
 		}
 		catch( \Aimeos\MShop\Exception $e )
 		{

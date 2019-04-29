@@ -572,7 +572,7 @@ class Standard
 			{
 				$code = trim( $code );
 
-				if( isset( $catalogMap[$code] )  ) {
+				if( isset( $catalogMap[$code] ) ) {
 					$item = $catalogMap[$code];
 				} else {
 					$item = $manager->createItem();
@@ -584,7 +584,7 @@ class Standard
 				{
 					$map = $map[0]; // there can only be one chunk for the base catalog data
 					$parentid = $this->getParentId( $catalogMap, $map, $code );
-					$item->fromArray( $map );
+					$item->fromArray( $map, true );
 
 					if( isset( $catalogMap[$code] ) )
 					{

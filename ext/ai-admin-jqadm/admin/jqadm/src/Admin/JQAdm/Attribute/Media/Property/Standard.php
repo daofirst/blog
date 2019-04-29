@@ -274,7 +274,7 @@ class Standard
 	 * Creates new and updates existing items using the data array
 	 *
 	 * @param \Aimeos\MShop\Attribute\Item\Iface $item Attribute item object without referenced domain items
-	 * @param string[] $data Data array
+	 * @param array $data Data array
 	 */
 	protected function fromArray( \Aimeos\MShop\Attribute\Item\Iface $item, array $data )
 	{
@@ -297,7 +297,7 @@ class Standard
 					$propItem = $propManager->createItem();
 				}
 
-				$propItem->fromArray( $entry );
+				$propItem->fromArray( $entry, true );
 				$refItem->addPropertyItem( $propItem );
 			}
 
@@ -324,7 +324,7 @@ class Standard
 
 		foreach( $item->getRefItems( 'media', null, null, false ) as $mediaItem )
 		{
-			foreach( $mediaItem->getPropertyItems( null, false )  as $propItem )
+			foreach( $mediaItem->getPropertyItems( null, false ) as $propItem )
 			{
 				$list = $propItem->toArray( true );
 

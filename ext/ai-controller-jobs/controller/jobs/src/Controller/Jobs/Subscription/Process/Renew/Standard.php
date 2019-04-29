@@ -135,8 +135,11 @@ class Standard
 	protected function addBasketAddresses( \Aimeos\MShop\Context\Item\Iface $context,
 		\Aimeos\MShop\Order\Item\Base\Iface $newBasket, array $addresses )
 	{
-		foreach( $addresses as $type => $orderAddress ) {
-			$newBasket->setAddress( $orderAddress, $type );
+		foreach( $addresses as $type => $orderAddresses )
+		{
+			foreach( $orderAddresses as $orderAddress ) {
+				$newBasket->addAddress( $orderAddress, $type );
+			}
 		}
 
 		return $newBasket;
@@ -155,6 +158,7 @@ class Standard
 		\Aimeos\MShop\Order\Item\Base\Iface $basket, array $codes )
 	{
 		/** controller/jobs/subcription/process/renew/standard/use-coupons
+		 * Applies the coupons of the previous order also to the new one
 		 *
 		 * Reuse coupon codes added to the basket by the customer the first time
 		 * again in new subcription orders. If they have any effect depends on
@@ -168,32 +172,13 @@ class Standard
 		 */
 		if( $context->getConfig()->get( 'controller/jobs/subcription/process/renew/standard/use-coupons', false ) )
 		{
-			$manager = \Aimeos\MShop::create( $context, 'coupon' );
-			$codeManager = \Aimeos\MShop::create( $context, 'coupon/code' );
-
 			foreach( $codes as $code )
 			{
-				$search = $manager->createSearch( true )->setSlice( 0, 1 );
-				$expr = [
-					$search->compare( '==', 'coupon.code.code', $code ),
-					$codeManager->createSearch( true )->getConditions(),
-					$search->getConditions(),
-				];
-				$search->setConditions( $search->combine( '&&', $expr ) );
-
-				$result = $manager->searchItems( $search );
-
-				if( ( $item = reset( $result ) ) === false ) {
-					continue;
+				try {
+					$basket->addCoupon( $code );
+				} catch( \Aimeos\MShop\Plugin\Provider\Exception $e ) {
+					$basket->deleteCoupon( $code );
 				}
-
-				$provider = $manager->getProvider( $item, $code );
-
-				if( $provider->isAvailable( $basket ) !== true ) {
-					continue;
-				}
-
-				$provider->addCoupon( $basket );
 			}
 		}
 

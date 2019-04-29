@@ -235,7 +235,7 @@ class Standard
 			}
 
 
-			$controller = \Aimeos\Controller\Frontend\Factory::create( $this->getContext(), 'basket' );
+			$controller = \Aimeos\Controller\Frontend::create( $this->getContext(), 'basket' );
 
 			if( ( $comment = $view->param( 'cs_comment' ) ) !== null )
 			{
@@ -292,14 +292,14 @@ class Standard
 	public function addData( \Aimeos\MW\View\Iface $view, array &$tags = [], &$expire = null )
 	{
 		$context = $this->getContext();
+		$addresses = $view->standardBasket->getAddress( \Aimeos\MShop\Order\Item\Base\Address\Base::TYPE_PAYMENT );
 
-		if( ( $view->summaryCustomerId = $context->getUserId() ) === null )
+		if( ( $view->summaryCustomerId = $context->getUserId() ) === null && ( $addr = current( $addresses ) ) !== false )
 		{
 			try
 			{
-				$addr = $view->standardBasket->getAddress( \Aimeos\MShop\Order\Item\Base\Address\Base::TYPE_PAYMENT );
-				$controller = \Aimeos\Controller\Frontend\Factory::create( $context, 'customer' );
-				$view->summaryCustomerId = $controller->findItem( $addr->getEmail() )->getId();
+				$controller = \Aimeos\Controller\Frontend::create( $context, 'customer' );
+				$view->summaryCustomerId = $controller->find( $addr->getEmail() )->getId();
 			}
 			catch( \Exception $e ) {}
 		}

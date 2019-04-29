@@ -69,65 +69,82 @@ class BaseTest extends \PHPUnit\Framework\TestCase
 	{
 		$item = \Aimeos\MShop::create( $this->context, 'subscription' )->createItem();
 
-		$this->stub->expects( $this->once() )->method( 'cancel' )->will( $this->returnValue( $item ) );
+		$this->stub->expects( $this->once() )->method( 'cancel' )
+			->will( $this->returnValue( $item ) );
 
-		$this->assertInstanceOf( \Aimeos\MShop\Subscription\Item\Iface::class, $this->object->cancel( -1, '' ) );
+		$this->assertInstanceOf( \Aimeos\MShop\Subscription\Item\Iface::class, $this->object->cancel( -1 ) );
 	}
 
 
-	public function testCreateFilter()
+	public function testCompare()
 	{
-		$search = \Aimeos\MShop::create( $this->context, 'subscription' )->createSearch();
-
-		$this->stub->expects( $this->once() )->method( 'createFilter' )->will( $this->returnValue( $search ) );
-
-		$this->assertInstanceOf( \Aimeos\MW\Criteria\Iface::class, $this->object->createFilter() );
+		$this->assertSame( $this->object, $this->object->compare( '==', 'supplier.status', 1 ) );
 	}
 
 
-	public function testGetItem()
+	public function testGet()
 	{
 		$item = \Aimeos\MShop::create( $this->context, 'subscription' )->createItem();
 
-		$this->stub->expects( $this->once() )->method( 'getItem' )->will( $this->returnValue( $item ) );
+		$this->stub->expects( $this->once() )->method( 'get' )
+			->will( $this->returnValue( $item ) );
 
-		$this->assertInstanceOf( \Aimeos\MShop\Subscription\Item\Iface::class, $this->object->getItem( -1 ) );
-	}
-
-
-	public function testSaveItem()
-	{
-		$item = \Aimeos\MShop::create( $this->context, 'subscription' )->createItem();
-
-		$this->stub->expects( $this->once() )->method( 'saveItem' );
-
-		$this->object->saveItem( $item );
-	}
-
-
-	public function testSearchItems()
-	{
-		$search = $this->getMockBuilder( \Aimeos\MW\Criteria\Iface::class )->getMock();
-
-		$this->stub->expects( $this->once() )->method( 'searchItems' )->will( $this->returnValue( [] ) );
-
-		$this->assertEquals( [], $this->object->searchItems( $search ) );
+		$this->assertInstanceOf( \Aimeos\MShop\Subscription\Item\Iface::class, $this->object->get( -1 ) );
 	}
 
 
 	public function testGetIntervals()
 	{
-		$this->stub->expects( $this->once() )->method( 'getIntervals' )->will( $this->returnValue( [] ) );
+		$this->stub->expects( $this->once() )->method( 'getIntervals' )
+			->will( $this->returnValue( [] ) );
 
 		$this->assertEquals( [], $this->object->getIntervals() );
 	}
 
 
+	public function testParse()
+	{
+		$this->assertSame( $this->object, $this->object->parse( [] ) );
+	}
+
+
+	public function testSave()
+	{
+		$item = \Aimeos\MShop::create( $this->context, 'subscription' )->createItem();
+
+		$this->stub->expects( $this->once() )->method( 'save' )
+			->will( $this->returnValue( $item ) );
+
+		$this->assertInstanceOf( \Aimeos\MShop\Subscription\Item\Iface::class, $this->object->save( $item ) );
+	}
+
+
+	public function testSearch()
+	{
+		$item = \Aimeos\MShop::create( $this->context, 'subscription' )->createItem();
+
+		$this->stub->expects( $this->once() )->method( 'search' )
+			->will( $this->returnValue( [$item] ) );
+
+		$this->assertEquals( [$item], $this->object->search() );
+	}
+
+
+	public function testSlice()
+	{
+		$this->assertSame( $this->object, $this->object->slice( 0, 100 ) );
+	}
+
+
+	public function testSort()
+	{
+		$this->assertSame( $this->object, $this->object->sort( 'interval' ) );
+	}
+
+
 	public function testGetController()
 	{
-		$result = $this->access( 'getController' )->invokeArgs( $this->object, [] );
-
-		$this->assertSame( $this->stub, $result );
+		$this->assertSame( $this->stub, $this->access( 'getController' )->invokeArgs( $this->object, [] ) );
 	}
 
 

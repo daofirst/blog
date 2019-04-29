@@ -50,7 +50,7 @@ class StandardTest extends \PHPUnit\Framework\TestCase
 		$this->assertContains( 'Neu', $output );
 		$this->assertContains( 'level-2', $output );
 
-		$this->assertEquals( '2022-01-01 00:00:00', $expire );
+		$this->assertEquals( '2098-01-01 00:00:00', $expire );
 		$this->assertEquals( 3, count( $tags ) );
 	}
 
@@ -60,7 +60,7 @@ class StandardTest extends \PHPUnit\Framework\TestCase
 		$catalogManager = \Aimeos\MShop\Catalog\Manager\Factory::create( \TestHelperHtml::getContext() );
 		$node = $catalogManager->getTree( null, [], \Aimeos\MW\Tree\Manager\Base::LEVEL_ONE );
 
-		$this->context->getConfig()->set( 'client/html/catalog/filter/tree/levels-always', 2 );
+		$this->context->getConfig()->set( 'controller/frontend/catalog/levels-always', 2 );
 
 		$view = $this->object->getView();
 		$helper = new \Aimeos\MW\View\Helper\Param\Standard( $view, array( 'f_catid' => $node->getId() ) );
@@ -73,7 +73,7 @@ class StandardTest extends \PHPUnit\Framework\TestCase
 		$output = $this->object->getBody();
 
 		$this->assertContains( 'level-2', $output );
-		$this->assertEquals( '2022-01-01 00:00:00', $expire );
+		$this->assertEquals( '2098-01-01 00:00:00', $expire );
 		$this->assertEquals( 3, count( $tags ) );
 	}
 
@@ -83,7 +83,7 @@ class StandardTest extends \PHPUnit\Framework\TestCase
 		$catalogManager = \Aimeos\MShop\Catalog\Manager\Factory::create( \TestHelperHtml::getContext() );
 		$node = $catalogManager->getTree( null, [], \Aimeos\MW\Tree\Manager\Base::LEVEL_TREE );
 
-		$this->context->getConfig()->set( 'client/html/catalog/filter/tree/levels-only', 1 );
+		$this->context->getConfig()->set( 'controller/frontend/catalog/levels-only', 1 );
 
 		$view = $this->object->getView();
 		$helper = new \Aimeos\MW\View\Helper\Param\Standard( $view, array( 'f_catid' => $node->getChild( 0 )->getId() ) );
@@ -96,7 +96,7 @@ class StandardTest extends \PHPUnit\Framework\TestCase
 		$output = $this->object->getBody();
 
 		$this->assertNotContains( 'level-2', $output );
-		$this->assertEquals( '2022-01-01 00:00:00', $expire );
+		$this->assertEquals( '2098-01-01 00:00:00', $expire );
 		$this->assertEquals( 2, count( $tags ) );
 	}
 

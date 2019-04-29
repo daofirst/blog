@@ -36,17 +36,39 @@ class StandardTest extends \PHPUnit\Framework\TestCase
 
 	protected function tearDown()
 	{
-		unset( $this->object, $this->context );
-
 		\Aimeos\MShop::cache( false );
-		\Aimeos\MShop::clear();
+		unset( $this->object, $this->context );
 	}
 
 
-	public function testCheckAttributes()
+	public function testCompare()
 	{
-		$attributes = $this->object->checkAttributes( $this->getServiceItem()->getId(), [] );
-		$this->assertEquals( [], $attributes );
+		$this->assertEquals( 1, count( $this->object->compare( '==', 'service.type', 'delivery' )->search() ) );
+	}
+
+
+	public function testFind()
+	{
+		$item = $this->object->uses( ['price'] )->find( 'unitcode' );
+
+		$this->assertInstanceOf( \Aimeos\MShop\Service\Item\Iface::class, $item );
+		$this->assertEquals( 2, count( $item->getRefItems( 'price' ) ) );
+	}
+
+
+	public function testGet()
+	{
+		$item = $this->object->uses( ['price'] )->get( $this->getServiceItem()->getId() );
+
+		$this->assertInstanceOf( \Aimeos\MShop\Service\Item\Iface::class, $item );
+		$this->assertEquals( 2, count( $item->getRefItems( 'price' ) ) );
+	}
+
+
+	public function testGetProvider()
+	{
+		$provider = $this->object->getProvider( $this->getServiceItem()->getId() );
+		$this->assertInstanceOf( \Aimeos\MShop\Service\Provider\Iface::class, $provider );
 	}
 
 
@@ -56,42 +78,87 @@ class StandardTest extends \PHPUnit\Framework\TestCase
 		$this->assertGreaterThan( 0, count( $providers ) );
 
 		foreach( $providers as $provider ) {
-			$this->assertInstanceOf( '\\Aimeos\\MShop\\Service\\Provider\\Iface', $provider );
+			$this->assertInstanceOf( \Aimeos\MShop\Service\Provider\Iface::class, $provider );
 		}
 	}
 
 
-	public function testGetProvider()
+	public function testParse()
 	{
-		$provider = $this->object->getProvider( $this->getServiceItem()->getId() );
-		$this->assertInstanceOf( '\\Aimeos\\MShop\\Service\\Provider\\Iface', $provider );
+		$cond = ['&&' => [['>' => ['service.status' => 0]], ['==' => ['service.type' => 'delivery']]]];
+		$this->assertEquals( 1, count( $this->object->parse( $cond )->search() ) );
 	}
 
 
 	public function testProcess()
 	{
-		$form = new \Aimeos\MShop\Common\Item\Helper\Form\Standard();
+		$form = new \Aimeos\MShop\Common\Helper\Form\Standard();
 		$item = \Aimeos\MShop::create( $this->context, 'order' )->createItem();
 		$serviceId = \Aimeos\MShop::create( $this->context, 'service' )->findItem( 'unitcode' )->getId();
 
-		$provider = $this->getMockBuilder( '\\Aimeos\\MShop\\Service\\Provider\\Delivery\\Standard' )
+		$provider = $this->getMockBuilder( \Aimeos\MShop\Service\Provider\Delivery\Standard::class )
 			->disableOriginalConstructor()
 			->setMethods( ['process'] )
 			->getMock();
 
-		$manager = $this->getMockBuilder( '\\Aimeos\\MShop\\Service\\Manager\\Standard' )
+		$manager = $this->getMockBuilder( \Aimeos\MShop\Service\Manager\Standard::class )
 			->setConstructorArgs( [$this->context] )
 			->setMethods( ['getProvider'] )
 			->getMock();
 
-		\Aimeos\MShop::inject( $this->context, 'service', $manager );
+		\Aimeos\MShop::inject( 'service', $manager );
 
-		$provider->expects( $this->once() )->method( 'process' )->will( $this->returnValue( $form ) );
 		$manager->expects( $this->once() )->method( 'getProvider' )->will( $this->returnValue( $provider ) );
+		$provider->expects( $this->once() )->method( 'process' )->will( $this->returnValue( $form ) );
 
 
-		$result = $this->object->process( $item, $serviceId, [], [] );
-		$this->assertInstanceOf( \Aimeos\MShop\Common\Item\Helper\Form\Iface::class, $result );
+		$object = new \Aimeos\Controller\Frontend\Service\Standard( $this->context );
+		$result = $object->process( $item, $serviceId, [], [] );
+
+		$this->assertInstanceOf( \Aimeos\MShop\Common\Helper\Form\Iface::class, $result );
+	}
+
+
+	public function testSearch()
+	{
+		$total = 0;
+		$items = $this->object->uses( ['price'] )->type( 'delivery' )->search( $total );
+
+		$this->assertEquals( 1, count( $items ) );
+		$this->assertEquals( 1, $total );
+		$this->assertEquals( 2, count( current( $items )->getRefItems( 'price' ) ) );
+	}
+
+
+	public function testSlice()
+	{
+		$this->assertEquals( 2, count( $this->object->slice( 0, 2 )->search() ) );
+	}
+
+
+	public function testSort()
+	{
+		$this->assertEquals( 4, count( $this->object->sort( 'type' )->search() ) );
+	}
+
+
+	public function testSortGeneric()
+	{
+		$this->assertEquals( 4, count( $this->object->sort( 'service.status' )->search() ) );
+	}
+
+
+	public function testSortType()
+	{
+		$result = $this->object->sort( 'type' )->search();
+		$this->assertEquals( 'unitcode', current( $result )->getCode() );
+	}
+
+
+	public function testSortTypeDesc()
+	{
+		$result = $this->object->sort( '-type' )->search();
+		$this->assertStringStartsWith( 'unitpaymentcode', current( $result )->getCode() );
 	}
 
 
@@ -126,8 +193,8 @@ class StandardTest extends \PHPUnit\Framework\TestCase
 			->setMethods( ['getProvider'] )
 			->getMock();
 
-		\Aimeos\MShop::inject( $this->context, 'order', $orderManager );
-		\Aimeos\MShop::inject( $this->context, 'service', $serviceManager );
+		\Aimeos\MShop::inject( 'order', $orderManager );
+		\Aimeos\MShop::inject( 'service', $serviceManager );
 
 
 		$orderManager->expects( $this->once() )->method( 'getItem' )->will( $this->returnValue( $item ) );
@@ -136,7 +203,15 @@ class StandardTest extends \PHPUnit\Framework\TestCase
 		$provider->expects( $this->once() )->method( 'isImplemented' )->will( $this->returnValue( true ) );
 		$provider->expects( $this->once() )->method( 'query' );
 
-		$this->object->updateSync( $request, 'unitcode', -1 );
+
+		$object = new \Aimeos\Controller\Frontend\Service\Standard( $this->context );
+		$object->updateSync( $request, 'unitcode', -1 );
+	}
+
+
+	public function testUses()
+	{
+		$this->assertSame( $this->object, $this->object->uses( ['text'] ) );
 	}
 
 

@@ -534,7 +534,7 @@ class Standard
 	/**
 	 * Creates new and updates existing items using the data array
 	 *
-	 * @param string[] $data Data array
+	 * @param array $data Data array
 	 * @param boolean $super If current user is a super user
 	 * @return \Aimeos\MShop\Locale\Item\Iface New locale item object
 	 */
@@ -565,7 +565,7 @@ class Standard
 			$item = $manager->createItem();
 		}
 
-		$item->fromArray( $data );
+		$item->fromArray( $data, true );
 		$item->setConfig( $conf );
 
 		if( $item->getId() == null ) {

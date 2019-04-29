@@ -227,9 +227,8 @@ class Standard
 	{
 		$pos = $view->param( 'd_pos' );
 
-		if( is_numeric( $pos ) && ( $pid = $view->param( 'd_prodid' ) ) !== null )
+		if( is_numeric( $pos ) && ( $name = $view->param( 'd_name' ) ) !== null )
 		{
-
 			if( $pos < 1 ) {
 				$start = 0; $size = 2;
 			} else {
@@ -239,41 +238,53 @@ class Standard
 			$context = $this->getContext();
 			$site = $context->getLocale()->getSite()->getCode();
 			$params = $context->getSession()->get( 'aimeos/catalog/lists/params/last/' . $site, [] );
+			$level = $view->config( 'client/html/catalog/lists/levels', \Aimeos\MW\Tree\Manager\Base::LEVEL_ONE );
 
-			$filter = $this->getProductListFilterByParam( $params );
-			$filter->setSlice( $start, $size );
-			$total = null;
+			$catids = $view->value( $params, 'f_catid', $view->config( 'client/html/catalog/lists/catid-default' ) );
+			$sort = $view->value( $params, 'f_sort', $view->config( 'client/html/catalog/lists/sort', 'relevance' ) );
 
-			$controller = \Aimeos\Controller\Frontend\Factory::create( $context, 'product' );
-			$products = $controller->searchItems( $filter, array( 'text' ), $total );
+			$products = \Aimeos\Controller\Frontend::create( $context, 'product' )
+				->allOf( $view->value( $params, 'f_attrid', [] ) )
+				->oneOf( $view->value( $params, 'f_optid', [] ) )
+				->oneOf( $view->value( $params, 'f_oneid', [] ) )
+				->text( $view->value( $params, 'f_search' ) )
+				->category( $catids, 'default', $level )
+				->slice( $start, $size )->sort( $sort )
+				->uses( ['text'] )
+				->search();
 
 			if( ( $count = count( $products ) ) > 1 )
 			{
 				$enc = $view->encoder();
-				$listPos = array_search( $pid, array_keys( $products ) );
+				$prev = $current = false;
+
+				foreach( $products as $product )
+				{
+					$prev = $current;
+
+					if( ( $current = $product->getName( 'url' ) ) === $name ) {
+						break;
+					}
+				}
+
+				if( ( $next = next( $products ) ) !== false ) {
+					$next = $next->getName( 'url' );
+				}
 
 				$target = $view->config( 'client/html/catalog/detail/url/target' );
 				$controller = $view->config( 'client/html/catalog/detail/url/controller', 'catalog' );
 				$action = $view->config( 'client/html/catalog/detail/url/action', 'detail' );
 				$config = $view->config( 'client/html/catalog/detail/url/config', [] );
 
-				if( $listPos > 0 && ( $product = reset( $products ) ) !== false )
+				if( $prev !== false )
 				{
-					$param = array(
-						'd_prodid' => $product->getId(),
-						'd_name' => $enc->url( $product->getName( 'url ' ) ),
-						'd_pos' => $pos - 1
-					);
+					$param = ['d_name' => $enc->url( $prev ), 'd_pos' => $pos - 1];
 					$view->navigationPrev = $view->url( $target, $controller, $action, $param, [], $config );
 				}
 
-				if( $listPos < $count - 1 && ( $product = end( $products ) ) !== false )
+				if( $next !== false )
 				{
-					$param = array(
-						'd_prodid' => $product->getId(),
-						'd_name' => $enc->url( $product->getName( 'url' ) ),
-						'd_pos' => $pos + 1
-					);
+					$param = ['d_name' => $enc->url( $next ), 'd_pos' => $pos - 1];
 					$view->navigationNext = $view->url( $target, $controller, $action, $param, [], $config );
 				}
 			}

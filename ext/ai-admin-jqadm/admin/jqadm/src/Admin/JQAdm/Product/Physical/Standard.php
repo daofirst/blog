@@ -270,7 +270,7 @@ class Standard
 	 * Creates new and updates existing items using the data array
 	 *
 	 * @param \Aimeos\MShop\Product\Item\Iface $item Product item object without referenced domain items
-	 * @param string[] $data Data array
+	 * @param array $data Data array
 	 */
 	protected function fromArray( \Aimeos\MShop\Product\Item\Iface $item, array $data )
 	{
@@ -291,7 +291,6 @@ class Standard
 				$propItem->setValue( $value );
 
 				$item->addPropertyItem( $propItem );
-
 			}
 			else
 			{

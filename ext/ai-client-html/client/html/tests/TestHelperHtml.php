@@ -15,7 +15,7 @@ class TestHelperHtml
 	{
 		self::getAimeos();
 		\Aimeos\MShop::cache( false );
-		\Aimeos\Controller\Frontend\Factory::setCache( false );
+		\Aimeos\Controller\Frontend::cache( false );
 	}
 
 
@@ -141,7 +141,7 @@ class TestHelperHtml
 		$ctx->setLocale( $locale );
 
 
-		$ctx->setEditor( 'core:client/html' );
+		$ctx->setEditor( 'ai-client-html:client/html' );
 
 		return $ctx;
 	}

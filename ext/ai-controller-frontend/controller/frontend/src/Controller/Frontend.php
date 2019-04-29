@@ -17,8 +17,8 @@ namespace Aimeos\Controller;
  */
 class Frontend
 {
-	static private $cache = true;
-	static private $controllers = [];
+	private static $cache = true;
+	private static $objects = [];
 
 
 	/**
@@ -27,37 +27,10 @@ class Frontend
 	 * @param boolean $value True to enable caching, false to disable it.
 	 * @return boolean Previous cache setting
 	 */
-	static public function cache( $value )
+	public static function cache( $value )
 	{
-		$old = self::$cache;
 		self::$cache = (boolean) $value;
-
-		return $old;
-	}
-
-
-	/**
-	 * Removes all controller objects from the cache
-	 *
-	 * If neither a context ID nor a path is given, the complete cache will be pruned.
-	 *
-	 * @param integer $id Context ID the objects have been created with (string of \Aimeos\MShop\Context\Item\Iface)
-	 * @param string $path Path describing the controller to clear, e.g. "basket"
-	 */
-	static public function clear( $id = null, $path = null )
-	{
-		if( $id !== null )
-		{
-			if( $path !== null ) {
-				self::$controllers[$id][$path] = null;
-			} else {
-				self::$controllers[$id] = [];
-			}
-
-			return;
-		}
-
-		self::$controllers = [];
+		self::$objects = [];
 	}
 
 
@@ -76,42 +49,46 @@ class Frontend
 	 * @return \Aimeos\Controller\Frontend\Iface New frontend controller
 	 * @throws \Aimeos\Controller\Frontend\Exception If the given path is invalid or the manager wasn't found
 	 */
-	static public function create( \Aimeos\MShop\Context\Item\Iface $context, $path )
+	public static function create( \Aimeos\MShop\Context\Item\Iface $context, $path )
 	{
 		if( empty( $path ) ) {
 			throw new \Aimeos\Controller\Frontend\Exception( sprintf( 'Controller path is empty' ) );
 		}
 
-		$id = (string) $context;
-
-		if( self::$cache === false || !isset( self::$controllers[$id][$path] ) )
+		if( self::$cache === false || !isset( self::$objects[$path] ) )
 		{
-			$parts = explode( '/', $path );
-
-			foreach( $parts as $key => $part )
-			{
-				if( ctype_alnum( $part ) === false ) {
-					throw new \Aimeos\Controller\Frontend\Exception( sprintf( 'Invalid characters in controller name "%1$s" in "%2$s"', $part, $path ) );
-				}
-
-				$parts[$key] = ucwords( $part );
+			if( ctype_alnum( $path ) === false ) {
+				throw new \Aimeos\Controller\Frontend\Exception( sprintf( 'Invalid characters in controller name "%1$s"', $path ) );
 			}
 
-			$factory = '\\Aimeos\\Controller\\Frontend\\' . join( '\\', $parts ) . '\\Factory';
+			$factory = '\\Aimeos\\Controller\\Frontend\\' . ucfirst( $path ) . '\\Factory';
 
 			if( class_exists( $factory ) === false ) {
 				throw new \Aimeos\Controller\Frontend\Exception( sprintf( 'Class "%1$s" not available', $factory ) );
 			}
 
-			$manager = call_user_func_array( array( $factory, 'create' ), array( $context ) );
-
-			if( $manager === false ) {
+			if( ( $controller = call_user_func_array( [$factory, 'create'], [$context] ) ) === false ) {
 				throw new \Aimeos\Controller\Frontend\Exception( sprintf( 'Invalid factory "%1$s"', $factory ) );
 			}
 
-			self::$controllers[$id][$path] = $manager;
+			self::$objects[$path] = $controller;
 		}
 
-		return self::$controllers[$id][$path];
+		return clone self::$objects[$path];
+	}
+
+
+	/**
+	 * Injects a manager object for the given path of manager names
+	 *
+	 * This method is for testing only and you must call \Aimeos\MShop::cache( false )
+	 * afterwards!
+	 *
+	 * @param string $path Name of the domain (and sub-controllers) separated by slashes, e.g "product"
+	 * @param \Aimeos\Controller\Frontend\Iface|null $object Frontend controller object for the given name or null to clear
+	 */
+	public static function inject( $path, \Aimeos\Controller\Frontend\Iface $object = null )
+	{
+		self::$objects[$path] = $object;
 	}
 }

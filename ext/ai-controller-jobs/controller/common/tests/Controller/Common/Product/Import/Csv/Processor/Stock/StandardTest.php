@@ -27,7 +27,6 @@ class StandardTest extends \PHPUnit\Framework\TestCase
 	protected function tearDown()
 	{
 		\Aimeos\MShop::cache( false );
-		\Aimeos\MShop::clear();
 	}
 
 
@@ -202,6 +201,11 @@ class StandardTest extends \PHPUnit\Framework\TestCase
 
 	protected function delete( \Aimeos\MShop\Product\Item\Iface $product )
 	{
+		$manager = \Aimeos\MShop\Stock\Manager\Factory::create( $this->context );
+		$search = $manager->createSearch();
+		$search->setConditions( $search->compare( '==', 'stock.productcode', $product->getCode() ) );
+		$manager->deleteItems( array_keys( $manager->searchItems( $search ) ) );
+
 		$manager = \Aimeos\MShop\Product\Manager\Factory::create( $this->context );
 		$manager->deleteItem( $product->getId() );
 	}

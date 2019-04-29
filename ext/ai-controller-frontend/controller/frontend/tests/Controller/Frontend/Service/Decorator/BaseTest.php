@@ -65,12 +65,31 @@ class BaseTest extends \PHPUnit\Framework\TestCase
 	}
 
 
-	public function testCheckAttributes()
+	public function testCompare()
 	{
-		$this->stub->expects( $this->once() )->method( 'checkAttributes' )
-			->will( $this->returnValue( [] ) );
+		$this->assertSame( $this->object, $this->object->compare( '==', 'service.type', 'delivery' ) );
+	}
 
-		$this->assertEquals( [], $this->object->checkAttributes( -1, [] ) );
+
+	public function testFind()
+	{
+		$item = \Aimeos\MShop::create( $this->context, 'service' )->createItem();
+
+		$this->stub->expects( $this->once() )->method( 'find' )
+			->will( $this->returnValue( $item ) );
+
+		$this->assertSame( $item, $this->object->find( 'test' ) );
+	}
+
+
+	public function testGet()
+	{
+		$item = \Aimeos\MShop::create( $this->context, 'service' )->createItem();
+
+		$this->stub->expects( $this->once() )->method( 'get' )
+			->will( $this->returnValue( $item ) );
+
+		$this->assertSame( $item, $this->object->get( -1 ) );
 	}
 
 
@@ -95,14 +114,44 @@ class BaseTest extends \PHPUnit\Framework\TestCase
 	}
 
 
+	public function testParse()
+	{
+		$this->assertSame( $this->object, $this->object->parse( [] ) );
+	}
+
+
 	public function testProcess()
 	{
 		$item = \Aimeos\MShop::create( $this->context, 'order' )->createItem();
 
 		$this->stub->expects( $this->once() )->method( 'process' )
-			->will( $this->returnValue( new \Aimeos\MShop\Common\Item\Helper\Form\Standard() ) );
+			->will( $this->returnValue( new \Aimeos\MShop\Common\Helper\Form\Standard() ) );
 
-		$this->assertInstanceOf( 'Aimeos\MShop\Common\Item\Helper\Form\Iface', $this->object->process( $item, -1, [], [] ) );
+		$this->assertInstanceOf( 'Aimeos\MShop\Common\Helper\Form\Iface', $this->object->process( $item, -1, [], [] ) );
+	}
+
+
+	public function testSearch()
+	{
+		$total = 0;
+		$item = \Aimeos\MShop::create( $this->context, 'service' )->createItem();
+
+		$this->stub->expects( $this->once() )->method( 'search' )
+			->will( $this->returnValue( [$item] ) );
+
+		$this->assertEquals( [$item], $this->object->search( $total ) );
+	}
+
+
+	public function testSlice()
+	{
+		$this->assertSame( $this->object, $this->object->slice( 0, 100 ) );
+	}
+
+
+	public function testSort()
+	{
+		$this->assertSame( $this->object, $this->object->sort( 'type' ) );
 	}
 
 
@@ -131,11 +180,15 @@ class BaseTest extends \PHPUnit\Framework\TestCase
 	}
 
 
+	public function testUses()
+	{
+		$this->assertSame( $this->object, $this->object->uses( ['text'] ) );
+	}
+
+
 	public function testGetController()
 	{
-		$result = $this->access( 'getController' )->invokeArgs( $this->object, [] );
-
-		$this->assertSame( $this->stub, $result );
+		$this->assertSame( $this->stub, $this->access( 'getController' )->invokeArgs( $this->object, [] ) );
 	}
 
 

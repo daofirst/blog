@@ -28,7 +28,7 @@ class StandardTest extends \PHPUnit\Framework\TestCase
 
 		$context->getConfig()->set( 'controller/common/subscription/process/processor/cgroup/groupids', ['1', '2'] );
 
-		$fcn = function( $subject ){
+		$fcn = function( $subject ) {
 			return $subject->getGroups() === ['1', '2'];
 		};
 
@@ -37,7 +37,7 @@ class StandardTest extends \PHPUnit\Framework\TestCase
 			->setMethods( ['getItem', 'saveItem'] )
 			->getMock();
 
-		\Aimeos\MShop::inject( $context, 'customer', $customerStub );
+		\Aimeos\MShop::inject( 'customer', $customerStub );
 
 		$customerItem = $customerStub->createItem();
 
@@ -58,7 +58,7 @@ class StandardTest extends \PHPUnit\Framework\TestCase
 
 		$context->getConfig()->set( 'controller/common/subscription/process/processor/cgroup/groupids', ['1', '2'] );
 
-		$fcn = function( $subject ){
+		$fcn = function( $subject ) {
 			return $subject->getGroups() === [];
 		};
 
@@ -67,7 +67,7 @@ class StandardTest extends \PHPUnit\Framework\TestCase
 			->setMethods( ['getItem', 'saveItem'] )
 			->getMock();
 
-		\Aimeos\MShop::inject( $context, 'customer', $customerStub );
+		\Aimeos\MShop::inject( 'customer', $customerStub );
 
 		$customerItem = $customerStub->createItem()->setGroups( ['1', '2'] );
 

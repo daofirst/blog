@@ -10,10 +10,20 @@ $enc = $this->encoder();
 $params = $this->get( 'listParams', [] );
 $catPath = $this->get( 'listCatPath', [] );
 
-$target = $this->config( 'client/html/catalog/lists/url/target' );
-$cntl = $this->config( 'client/html/catalog/lists/url/controller', 'catalog' );
-$action = $this->config( 'client/html/catalog/lists/url/action', 'list' );
-$config = $this->config( 'client/html/catalog/lists/url/config', [] );
+if( $this->param( 'f_catid' ) !== null )
+{
+	$target = $this->config( 'client/html/catalog/tree/url/target' );
+	$cntl = $this->config( 'client/html/catalog/tree/url/controller', 'catalog' );
+	$action = $this->config( 'client/html/catalog/tree/url/action', 'tree' );
+	$config = $this->config( 'client/html/catalog/tree/url/config', [] );
+}
+else
+{
+	$target = $this->config( 'client/html/catalog/lists/url/target' );
+	$cntl = $this->config( 'client/html/catalog/lists/url/controller', 'catalog' );
+	$action = $this->config( 'client/html/catalog/lists/url/action', 'list' );
+	$config = $this->config( 'client/html/catalog/lists/url/config', [] );
+}
 
 $optTarget = $this->config( 'client/jsonapi/url/target' );
 $optCntl = $this->config( 'client/jsonapi/url/controller', 'jsonapi' );
@@ -56,8 +66,21 @@ if( $catPath !== [] && ( $catItem = end( $catPath ) ) !== false ) {
 }
 
 
+/** client/html/catalog/lists/pagination/enable
+ * Enables or disables pagination in list views
+ *
+ * Pagination is automatically hidden if there are not enough products in the
+ * category or search result. But sometimes you don't want to show the pagination
+ * at all, e.g. if you implement infinite scrolling by loading more results
+ * dynamically using AJAX.
+ *
+ * @param boolean True for enabling, false for disabling pagination
+ * @since 2019.04
+ * @category User
+ * @category Developer
+ */
 $pagination = '';
-if( $this->get( 'listProductTotal', 0 ) > 1 )
+if( $this->get( 'listProductTotal', 0 ) > 1 && $this->config( 'client/html/catalog/lists/pagination/enable', true ) == true )
 {
 	/** client/html/catalog/lists/partials/pagination
 	 * Relative path to the pagination partial template file for catalog lists
@@ -166,6 +189,6 @@ if( $this->get( 'listProductTotal', 0 ) > 1 )
 	<?= $this->block()->get( 'catalog/lists/items' ); ?>
 
 
- 	<?= $pagination; ?>
+	<?= $pagination; ?>
 
 </section>

@@ -249,7 +249,7 @@ class Standard
 	 * Creates new and updates existing items using the data array
 	 *
 	 * @param \Aimeos\MShop\Product\Item\Iface $item Product item object without referenced domain items
-	 * @param string[] $data Data array
+	 * @param array $data Data array
 	 */
 	protected function fromArray( \Aimeos\MShop\Product\Item\Iface $item, array $data )
 	{
@@ -271,8 +271,6 @@ class Standard
 			$litem->setRefId( $this->getValue( $data, 'product.lists.refid/' . $idx ) );
 
 			$item->addListItem( 'attribute', $litem, $litem->getRefItem() );
-
-
 		}
 
 		return $item->deleteListItems( $listItems );

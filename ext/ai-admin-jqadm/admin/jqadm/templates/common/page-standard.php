@@ -142,75 +142,6 @@ if( $lang ) {
 }
 
 $title = $this->translate( 'admin', '%1$s (Ctrl+Alt+%2$s)' );
-
-
-/** admin/jqadm/partial/confirm
- * Relative path to the partial template for displaying the confirmation dialog
- *
- * The template file contains the HTML code and processing instructions
- * to generate the result shown in the administration interface. The
- * configuration string is the path to the template file relative
- * to the templates directory (usually in admin/jqadm/templates).
- *
- * You can overwrite the template file configuration in extensions and
- * provide alternative templates. These alternative templates should be
- * named like the default one but with the string "default" replaced by
- * an unique name. You may use the name of your project for this. If
- * you've implemented an alternative client class as well, "default"
- * should be replaced by the name of the new class.
- *
- * @param string Relative path to the partial creating the HTML code
- * @since 2016.04
- * @category Developer
- * @see admin/jqadm/partial/error
- * @see admin/jqadm/partial/info
- */
-
-/** admin/jqadm/partial/error
- * Relative path to the partial template for displaying errors
- *
- * The template file contains the HTML code and processing instructions
- * to generate the result shown in the administration interface. The
- * configuration string is the path to the template file relative
- * to the templates directory (usually in admin/jqadm/templates).
- *
- * You can overwrite the template file configuration in extensions and
- * provide alternative templates. These alternative templates should be
- * named like the default one but with the string "default" replaced by
- * an unique name. You may use the name of your project for this. If
- * you've implemented an alternative client class as well, "default"
- * should be replaced by the name of the new class.
- *
- * @param string Relative path to the partial creating the HTML code
- * @since 2016.04
- * @category Developer
- * @see admin/jqadm/partial/confirm
- * @see admin/jqadm/partial/info
- */
-
-/** admin/jqadm/partial/info
- * Relative path to the partial template for displaying notices
- *
- * The template file contains the HTML code and processing instructions
- * to generate the result shown in the administration interface. The
- * configuration string is the path to the template file relative
- * to the templates directory (usually in admin/jqadm/templates).
- *
- * You can overwrite the template file configuration in extensions and
- * provide alternative templates. These alternative templates should be
- * named like the default one but with the string "default" replaced by
- * an unique name. You may use the name of your project for this. If
- * you've implemented an alternative client class as well, "default"
- * should be replaced by the name of the new class.
- *
- * @param string Relative path to the partial creating the HTML code
- * @since 2017.10
- * @category Developer
- * @see admin/jqadm/partial/confirm
- * @see admin/jqadm/partial/error
- */
-
-
 $infoMsgs = $this->get( 'info', [] );
 
 switch( $this->param( 'act' ) )
@@ -229,7 +160,7 @@ switch( $this->param( 'act' ) )
 		<div class="sidebar-wrapper">
 
 			<a class="logo" target="_blank" href="https://aimeos.org/update/?type=<?= $this->get( 'aimeosType' ) ?>&version=<?= $this->get( 'aimeosVersion' ) ?>">
-				<img src="https://tangzhengyuan.oss-cn-shanghai.aliyuncs.com/blog/public/assets/images/custom/logo/logo.png" alt="Aimeos update" title="Aimeos update">
+				<img src="https://aimeos.org/check/?type=<?= $this->get( 'aimeosType' ) ?>&version=<?= $this->get( 'aimeosVersion' ) ?>&extensions=<?= $this->get( 'aimeosExtensions' ) ?>" alt="Aimeos update" title="Aimeos update">
 			</a>
 
 			<ul class="sidebar-menu basic">
@@ -273,7 +204,6 @@ switch( $this->param( 'act' ) )
 				<?php foreach( array_splice( $navlist, 0, $navlimit ) as $nav => $navitem ) : ?>
 					<?php if( is_array( $navitem ) ) : ?>
 						<?php if( $this->access( $this->config( 'admin/jqadm/resource/' . $nav . '/groups', [] ) ) ) : ?>
-
 							<li class="treeview <?= $enc->attr( $nav ) ?> <?= strncmp( $this->param( 'resource' ), $nav, strlen( $nav ) ) ? '' : 'active' ?>">
 								<span>
 									<i class="icon"></i>
@@ -321,7 +251,6 @@ switch( $this->param( 'act' ) )
 				<?php foreach( $navlist as $nav => $navitem ) : ?>
 					<?php if( is_array( $navitem ) ) : ?>
 						<?php if( $this->access( $this->config( 'admin/jqadm/resource/' . $nav . '/groups', [] ) ) ) : ?>
-
 							<li class="treeview <?= $enc->attr( $nav ) ?> <?= strncmp( $this->param( 'resource' ), $nav, strlen( $nav ) ) ? '' : 'active' ?>">
 								<span>
 									<i class="icon"></i>
@@ -346,7 +275,6 @@ switch( $this->param( 'act' ) )
 						<?php endif; ?>
 					<?php else : ?>
 						<?php if( $this->access( $this->config( 'admin/jqadm/resource/' . $navitem . '/groups', [] ) ) ) : ?>
-
 							<?php $key = $this->config( 'admin/jqadm/resource/' . $navitem . '/key' ); ?>
 							<li class="<?= $enc->attr( $navitem ); ?> <?= $this->param( 'resource', $navfirst ) === $navitem ? 'active' : '' ?>">
 								<a href="<?= $enc->attr( $this->url( $searchTarget, $cntl, $action, array( 'resource' => $navitem ) + $params, [], $config ) ); ?>"

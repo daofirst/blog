@@ -285,7 +285,7 @@ class Standard
 	 * @param integer $total Value/result parameter that will contain the item total afterwards
 	 * @return \Aimeos\MShop\Common\Item\List\Iface[] Supplier list items referencing the products
 	 */
-	protected function getListItems( \Aimeos\MShop\Supplier\Item\Iface $item, array $params = [], &$total )
+	protected function getListItems( \Aimeos\MShop\Supplier\Item\Iface $item, array $params = [], &$total = null )
 	{
 		$manager = \Aimeos\MShop::create( $this->getContext(), 'supplier/lists' );
 
@@ -392,7 +392,7 @@ class Standard
 	 * Creates new and updates existing items using the data array
 	 *
 	 * @param \Aimeos\MShop\Supplier\Item\Iface $item Supplier item object without referenced domain items
-	 * @param string[] $data Data array
+	 * @param array $data Data array
 	 */
 	protected function fromArray( \Aimeos\MShop\Supplier\Item\Iface $item, array $data )
 	{

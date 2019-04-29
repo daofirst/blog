@@ -65,14 +65,39 @@ class BaseTest extends \PHPUnit\Framework\TestCase
 	}
 
 
-	public function testCreateFilter()
+	public function testCompare()
 	{
-		$search = \Aimeos\MShop::create( $this->context, 'catalog' )->createSearch();
+		$this->assertSame( $this->object, $this->object->compare( '==', 'catalog.code', 'test' ) );
+	}
 
-		$this->stub->expects( $this->once() )->method( 'createFilter' )
-			->will( $this->returnValue( $search ) );
 
-		$this->assertInstanceOf( \Aimeos\MW\Criteria\Iface::class, $this->object->createFilter() );
+	public function testFind()
+	{
+		$item = \Aimeos\MShop::create( $this->context, 'catalog' )->createItem();
+		$expected = \Aimeos\MShop\Catalog\Item\Iface::class;
+
+		$this->stub->expects( $this->once() )->method( 'find' )
+			->will( $this->returnValue( $item ) );
+
+		$this->assertInstanceOf( $expected, $this->object->find( 'test', ['text'] ) );
+	}
+
+
+	public function testGet()
+	{
+		$item = \Aimeos\MShop::create( $this->context, 'catalog' )->createItem();
+		$expected = \Aimeos\MShop\Catalog\Item\Iface::class;
+
+		$this->stub->expects( $this->once() )->method( 'get' )
+			->will( $this->returnValue( $item ) );
+
+		$this->assertInstanceOf( $expected, $this->object->get( 1, ['text'] ) );
+	}
+
+
+	public function testParse()
+	{
+		$this->assertSame( $this->object, $this->object->parse( [] ) );
 	}
 
 
@@ -93,6 +118,24 @@ class BaseTest extends \PHPUnit\Framework\TestCase
 			->will( $this->returnValue( $catItem ) );
 
 		$this->assertInstanceOf( \Aimeos\MShop\Catalog\Item\Iface::class, $this->object->getTree() );
+	}
+
+
+	public function testRoot()
+	{
+		$this->assertSame( $this->object, $this->object->root( -1 ) );
+	}
+
+
+	public function testUses()
+	{
+		$this->assertSame( $this->object, $this->object->uses( ['text'] ) );
+	}
+
+
+	public function testVisible()
+	{
+		$this->assertSame( $this->object, $this->object->visible( [1, 2] ) );
 	}
 
 

@@ -318,7 +318,7 @@ class Standard
 	 * Creates new and updates existing items using the data array
 	 *
 	 * @param \Aimeos\MShop\Attribute\Item\Iface $item Attribute item object without referenced domain items
-	 * @param string[] $data Data array
+	 * @param array $data Data array
 	 */
 	protected function fromArray( \Aimeos\MShop\Attribute\Item\Iface $item, array $data )
 	{
@@ -340,7 +340,7 @@ class Standard
 				$refItem = $priceManager->createItem();
 			}
 
-			$refItem->fromArray( $entry );
+			$refItem->fromArray( $entry, true );
 			$conf = [];
 
 			foreach( (array) $this->getValue( $entry, 'config/key' ) as $num => $key )
@@ -350,7 +350,7 @@ class Standard
 				}
 			}
 
-			$listItem->fromArray( $entry );
+			$listItem->fromArray( $entry, true );
 			$listItem->setPosition( $idx );
 			$listItem->setConfig( $conf );
 

@@ -46,6 +46,14 @@ class Laravel
 			'internaltype'=> \Aimeos\MW\DB\Statement\Base::PARAM_INT,
 			'public' => false,
 		),
+		'customer.lists.key' => array(
+			'code' => 'customer.lists.key',
+			'internalcode' => 'lvuli."key"',
+			'label' => 'Unique key',
+			'type' => 'string',
+			'internaltype' => \Aimeos\MW\DB\Statement\Base::PARAM_STR,
+			'public' => false,
+		),
 		'customer.lists.domain'=> array(
 			'code'=>'customer.lists.domain',
 			'internalcode'=>'lvuli."domain"',
@@ -134,7 +142,7 @@ class Laravel
 	public function cleanup( array $siteids )
 	{
 		$path = 'mshop/customer/manager/lists/submanagers';
-		foreach( $this->getContext()->getConfig()->get( $path, [] ) as $domain ) {
+		foreach( $this->getContext()->getConfig()->get( $path, ['type'] ) as $domain ) {
 			$this->getObject()->getSubManager( $domain )->cleanup( $siteids );
 		}
 

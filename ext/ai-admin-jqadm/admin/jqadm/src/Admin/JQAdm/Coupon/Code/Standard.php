@@ -267,7 +267,7 @@ class Standard
 	 * @param integer $total Value/result parameter that will contain the item total afterwards
 	 * @return \Aimeos\MShop\Coupon\Item\Code\Iface[] Coupon code items associated to the coupon item
 	 */
-	protected function getCodeItems( \Aimeos\MShop\Coupon\Item\Iface $item, array $params = [], &$total )
+	protected function getCodeItems( \Aimeos\MShop\Coupon\Item\Iface $item, array $params = [], &$total = null )
 	{
 		$manager = \Aimeos\MShop::create( $this->getContext(), 'coupon/code' );
 
@@ -333,7 +333,7 @@ class Standard
 	 * Creates new and updates existing items using the data array
 	 *
 	 * @param \Aimeos\MShop\Coupon\Item\Iface $item Coupon item object
-	 * @param string[] $data Data array
+	 * @param array $data Data array
 	 */
 	protected function fromArray( \Aimeos\MShop\Coupon\Item\Iface $item, array $data )
 	{

@@ -65,44 +65,55 @@ class BaseTest extends \PHPUnit\Framework\TestCase
 	}
 
 
-	public function testCreateFilter()
+	public function testCompare()
 	{
-		$search = \Aimeos\MShop::create( $this->context, 'locale' )->createSearch();
-
-		$this->stub->expects( $this->once() )->method( 'createFilter' )
-			->will( $this->returnValue( $search ) );
-
-		$this->assertInstanceOf( \Aimeos\MW\Criteria\Iface::class, $this->object->createFilter() );
+		$this->assertSame( $this->object, $this->object->compare( '==', 'locale.status', 1 ) );
 	}
 
 
-	public function testGetItem()
+	public function testGet()
 	{
 		$item = \Aimeos\MShop::create( $this->context, 'locale' )->createItem();
 
-		$this->stub->expects( $this->once() )->method( 'getItem' )
+		$this->stub->expects( $this->once() )->method( 'get' )
 			->will( $this->returnValue( $item ) );
 
-		$this->assertInstanceOf( \Aimeos\MShop\Locale\Item\Iface::class, $this->object->getItem( -1 ) );
+		$this->assertInstanceOf( \Aimeos\MShop\Locale\Item\Iface::class, $this->object->get( -1 ) );
 	}
 
 
-	public function testSearchItems()
+	public function testParse()
 	{
-		$filter = \Aimeos\MShop::create( $this->context, 'locale' )->createSearch();
+		$this->assertSame( $this->object, $this->object->parse( [] ) );
+	}
 
-		$this->stub->expects( $this->once() )->method( 'searchItems' )
-			->will( $this->returnValue( [] ) );
 
-		$this->assertEquals( [], $this->object->searchItems( $filter, ['media'] ) );
+	public function testSearch()
+	{
+		$item = \Aimeos\MShop::create( $this->context, 'locale' )->createItem();
+
+		$this->stub->expects( $this->once() )->method( 'search' )
+			->will( $this->returnValue( [$item] ) );
+
+		$this->assertEquals( [$item], $this->object->search() );
+	}
+
+
+	public function testSlice()
+	{
+		$this->assertSame( $this->object, $this->object->slice( 0, 100 ) );
+	}
+
+
+	public function testSort()
+	{
+		$this->assertSame( $this->object, $this->object->sort( 'position' ) );
 	}
 
 
 	public function testGetController()
 	{
-		$result = $this->access( 'getController' )->invokeArgs( $this->object, [] );
-
-		$this->assertSame( $this->stub, $result );
+		$this->assertSame( $this->stub, $this->access( 'getController' )->invokeArgs( $this->object, [] ) );
 	}
 
 

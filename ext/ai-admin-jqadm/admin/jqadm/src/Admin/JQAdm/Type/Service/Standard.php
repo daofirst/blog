@@ -467,7 +467,7 @@ class Standard
 	/**
 	 * Creates new and updates existing items using the data array
 	 *
-	 * @param string[] Data array
+	 * @param array $data Data array
 	 * @return \Aimeos\MShop\Common\Item\Type\Iface New type item object
 	 */
 	protected function fromArray( array $data )
@@ -480,7 +480,7 @@ class Standard
 			$item = $manager->createItem();
 		}
 
-		$item->fromArray( $data );
+		$item->fromArray( $data, true );
 
 		return $item;
 	}

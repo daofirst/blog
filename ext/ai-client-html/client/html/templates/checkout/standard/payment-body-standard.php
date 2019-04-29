@@ -45,7 +45,6 @@ $priceFormat = $this->translate( 'client', '%1$s %2$s' );
 	<p class="note"><?= $enc->html( $this->translate( 'client', 'Please choose your payment method' ), $enc::TRUST ); ?></p>
 
 	<?php foreach( $services as $id => $service ) : ?>
-
 		<div id="c_payment-<?= $enc->attr( $id ); ?>" class="item item-service row">
 
 			<div class="col-sm-6">
@@ -64,8 +63,8 @@ $priceFormat = $this->translate( 'client', '%1$s %2$s' );
 							<span class="price-value">
 								<?= $enc->html( sprintf( /// Service fee value (%1$s) and shipping cost value (%2$s) with currency (%3$s)
 									$this->translate( 'client', '%1$s%3$s + %2$s%3$s' ),
-									$this->number( $servicePrices[$id]->getValue() ),
-									$this->number( $servicePrices[$id]->getCosts() ),
+									$this->number( $servicePrices[$id]->getValue(), $servicePrices[$id]->getPrecision() ),
+									$this->number( $servicePrices[$id]->getCosts() > 0 ? $servicePrices[$id]->getCosts() : 0, $servicePrices[$id]->getPrecision() ),
 									$currency )
 								); ?>
 							</span>
@@ -73,7 +72,7 @@ $priceFormat = $this->translate( 'client', '%1$s %2$s' );
 							<span class="price-value">
 								<?= $enc->html( sprintf(
 									$priceFormat,
-									$this->number( $servicePrices[$id]->getCosts() ),
+									$this->number( $servicePrices[$id]->getCosts() > 0 ? $servicePrices[$id]->getCosts() : 0, $servicePrices[$id]->getPrecision() ),
 									$currency )
 								); ?>
 							</span>
@@ -103,7 +102,6 @@ $priceFormat = $this->translate( 'client', '%1$s %2$s' );
 			<div class="col-sm-6">
 
 				<?php if( isset( $serviceAttributes[$id] ) && !empty( $serviceAttributes[$id] ) ) : ?>
-
 					<?= $this->partial(
 						/** client/html/checkout/standard/partials/serviceattr
 						 * Relative path to the checkout service attribute partial template file

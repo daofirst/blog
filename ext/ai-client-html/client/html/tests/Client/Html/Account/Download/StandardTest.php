@@ -18,8 +18,11 @@ class StandardTest extends \PHPUnit\Framework\TestCase
 
 	protected function setUp()
 	{
+		\Aimeos\MShop::cache( true );
+
 		$this->view = \TestHelperHtml::getView();
 		$this->context = \TestHelperHtml::getContext();
+		$this->context->setUserId( \Aimeos\MShop::create( $this->context, 'customer' )->findItem( 'UTC001' )->getId() );
 
 		$this->object = new \Aimeos\Client\Html\Account\Download\Standard( $this->context );
 		$this->object->setView( $this->view );
@@ -28,6 +31,7 @@ class StandardTest extends \PHPUnit\Framework\TestCase
 
 	protected function tearDown()
 	{
+		\Aimeos\MShop::cache( false );
 		unset( $this->object );
 	}
 
@@ -93,7 +97,7 @@ class StandardTest extends \PHPUnit\Framework\TestCase
 		$attrManagerStub->expects( $this->once() )->method( 'getItem' )
 			->will( $this->returnValue( $attrManagerStub->createItem() ) );
 
-		\Aimeos\MShop::inject( $this->context, 'order/base/product/attribute', $attrManagerStub );
+		\Aimeos\MShop::inject( 'order/base/product/attribute', $attrManagerStub );
 
 
 		$stream = $this->getMockBuilder( \Psr\Http\Message\StreamInterface::class )->getMock();
@@ -107,45 +111,29 @@ class StandardTest extends \PHPUnit\Framework\TestCase
 		$helper->expects( $this->once() )->method( 'createStream' )->will( $this->returnValue( $stream ) );
 		$this->view->addHelper( 'response', $helper );
 
-
-		\Aimeos\MShop::cache( true );
 		$object->process();
-		\Aimeos\MShop::cache( false );
 	}
 
 
 	public function testProcessCheckAccess()
 	{
-		$class = new \ReflectionClass( \Aimeos\Client\Html\Account\Download\Standard::class );
-		$method = $class->getMethod( 'checkAccess' );
-		$method->setAccessible( true );
-
-		$result = $method->invokeArgs( $this->object, array( 123, 321 ) );
-
-		$this->assertFalse( $result );
+		$this->assertFalse( $this->access( 'checkAccess' )->invokeArgs( $this->object, [123, 321] ) );
 	}
 
 
 	public function testProcessCheckDownload()
 	{
-		$managerStub = $this->getMockBuilder( '\\Aimeos\\MShop\\Customer\\Manager\\Lists\\Standard' )
+		$customerStub = $this->getMockBuilder( \Aimeos\Controller\Frontend\Customer\Standard::class )
 			->setConstructorArgs( array( $this->context ) )
-			->setMethods( array( 'saveItem' ) )
+			->setMethods( array( 'addListItem', 'store' ) )
 			->getMock();
-		$managerStub->expects( $this->once() )->method( 'saveItem' );
 
-		\Aimeos\MShop::inject( $this->context, 'customer/lists', $managerStub );
+		$customerStub->expects( $this->once() )->method( 'addListItem' )->will( $this->returnValue( $customerStub ) );
+		$customerStub->expects( $this->once() )->method( 'store' )->will( $this->returnValue( $customerStub ) );
 
-
-		$class = new \ReflectionClass( \Aimeos\Client\Html\Account\Download\Standard::class );
-		$method = $class->getMethod( 'checkDownload' );
-		$method->setAccessible( true );
-
-		\Aimeos\MShop::cache( true );
-		$result = $method->invokeArgs( $this->object, array( 123, 321 ) );
-		\Aimeos\MShop::cache( false );
-
-		$this->assertTrue( $result );
+		\Aimeos\Controller\Frontend\Customer\Factory::injectController( '\Aimeos\Controller\Frontend\Customer\Standard', $customerStub );
+		$this->assertTrue( $this->access( 'checkDownload' )->invokeArgs( $this->object, [123, 321] ) );
+		\Aimeos\Controller\Frontend\Customer\Factory::injectController( '\Aimeos\Controller\Frontend\Customer\Standard', null );
 	}
 
 
@@ -153,25 +141,7 @@ class StandardTest extends \PHPUnit\Framework\TestCase
 	{
 		$this->context->getConfig()->set( 'client/html/account/download/maxcount', 0 );
 
-		$class = new \ReflectionClass( \Aimeos\Client\Html\Account\Download\Standard::class );
-		$method = $class->getMethod( 'checkDownload' );
-		$method->setAccessible( true );
-
-		$result = $method->invokeArgs( $this->object, array( 123, 321 ) );
-
-		$this->assertFalse( $result );
-	}
-
-
-	public function testProcessGetListItem()
-	{
-		$class = new \ReflectionClass( \Aimeos\Client\Html\Account\Download\Standard::class );
-		$method = $class->getMethod( 'getListItem' );
-		$method->setAccessible( true );
-
-		$result = $method->invokeArgs( $this->object, array( 123, 321 ) );
-
-		$this->assertInstanceOf( \Aimeos\MShop\Common\Item\Lists\Iface::class, $result );
+		$this->assertFalse( $this->access( 'checkDownload' )->invokeArgs( $this->object, [123, 321] ) );
 	}
 
 
@@ -196,12 +166,7 @@ class StandardTest extends \PHPUnit\Framework\TestCase
 		$helper->expects( $this->once() )->method( 'createStream' )->will( $this->returnValue( $stream ) );
 		$this->view->addHelper( 'response', $helper );
 
-
-		$class = new \ReflectionClass( \Aimeos\Client\Html\Account\Download\Standard::class );
-		$method = $class->getMethod( 'addDownload' );
-		$method->setAccessible( true );
-
-		$method->invokeArgs( $this->object, array( $item ) );
+		$this->access( 'addDownload' )->invokeArgs( $this->object, [$item] );
 	}
 
 
@@ -219,12 +184,7 @@ class StandardTest extends \PHPUnit\Framework\TestCase
 		$helper = new \Aimeos\MW\View\Helper\Response\Standard( $this->view, $response );
 		$this->view->addHelper( 'response', $helper );
 
-
-		$class = new \ReflectionClass( \Aimeos\Client\Html\Account\Download\Standard::class );
-		$method = $class->getMethod( 'addDownload' );
-		$method->setAccessible( true );
-
-		$method->invokeArgs( $this->object, array( $item ) );
+		$this->access( 'addDownload' )->invokeArgs( $this->object, [$item] );
 	}
 
 
@@ -242,11 +202,16 @@ class StandardTest extends \PHPUnit\Framework\TestCase
 		$helper = new \Aimeos\MW\View\Helper\Response\Standard( $this->view, $response );
 		$this->view->addHelper( 'response', $helper );
 
+		$this->access( 'addDownload' )->invokeArgs( $this->object, [$item] );
+	}
 
+
+	protected function access( $name )
+	{
 		$class = new \ReflectionClass( \Aimeos\Client\Html\Account\Download\Standard::class );
-		$method = $class->getMethod( 'addDownload' );
+		$method = $class->getMethod( $name );
 		$method->setAccessible( true );
 
-		$method->invokeArgs( $this->object, array( $item ) );
+		return $method;
 	}
 }

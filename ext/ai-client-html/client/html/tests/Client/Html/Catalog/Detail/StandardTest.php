@@ -45,7 +45,7 @@ class StandardTest extends \PHPUnit\Framework\TestCase
 
 		$this->assertContains( '<title>Cafe Noire Expresso</title>', $output );
 		$this->assertContains( '<script type="text/javascript" defer="defer" src="http://baseurl/catalog/stock/?s_prodcode', $output );
-		$this->assertEquals( '2022-01-01 00:00:00', $expire );
+		$this->assertEquals( '2098-01-01 00:00:00', $expire );
 		$this->assertEquals( 6, count( $tags ) );
 	}
 
@@ -112,8 +112,25 @@ class StandardTest extends \PHPUnit\Framework\TestCase
 
 		$this->assertContains( '<div class="catalog-detail-service', $output );
 
-		$this->assertEquals( '2022-01-01 00:00:00', $expire );
+		$this->assertEquals( '2098-01-01 00:00:00', $expire );
 		$this->assertEquals( 6, count( $tags ) );
+	}
+
+
+	public function testGetBodyByName()
+	{
+		$paths = \TestHelperHtml::getHtmlTemplatePaths();
+		$this->object = new \Aimeos\Client\Html\Catalog\Detail\Standard( $this->context, $paths );
+		$this->object->setView( \TestHelperHtml::getView() );
+
+		$view = $this->object->getView();
+		$helper = new \Aimeos\MW\View\Helper\Param\Standard( $view, array( 'd_name' => 'Cafe_Noire_Expresso' ) );
+		$view->addHelper( 'param', $helper );
+
+		$this->object->setView( $this->object->addData( $view ) );
+		$output = $this->object->getBody();
+
+		$this->assertContains( '<span class="value" itemprop="sku">CNE</span>', $output );
 	}
 
 
