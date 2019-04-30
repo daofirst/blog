@@ -19,17 +19,18 @@ Route::get('/home', function () {
 })->name('home');
 
 Route::group(['prefix' => 'admin'], function () {
-    Voyager::routes();
 
     // Admin Media
     Route::group([
-        'as'     => 'media.',
+        'as'     => 'voyager.media.',
         'prefix' => 'media',
-        'namespace' => 'Admin'
     ], function () {
         Route::post('files', ['uses' => 'VoyagerMediaController@files',              'as' => 'files']);
         Route::post('upload', ['uses' => 'VoyagerMediaController@upload',             'as' => 'upload']);
     });
+
+    Voyager::routes();
+
 });
 
 Auth::routes();
@@ -37,7 +38,7 @@ Auth::routes();
 // 唐小店
 Route::group(['prefix' => 'shop', 'namespace' => 'Web'], function () {
     Route::get('/', 'ShopController@index');
-});\
+});
 
 
 /*
